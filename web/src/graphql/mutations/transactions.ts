@@ -1,0 +1,26 @@
+import { gql } from '@apollo/client'
+import { TRANSACTION_FIELDS } from '../fragments'
+
+export const CREATE_TRANSACTION = gql`
+  ${TRANSACTION_FIELDS}
+  mutation CreateTransaction($data: CreateTransactionInput!) {
+    createTransaction(data: $data) {
+      ...TransactionFields
+    }
+  }
+`
+
+export const UPDATE_TRANSACTION = gql`
+  ${TRANSACTION_FIELDS}
+  mutation UpdateTransaction($id: ID!, $data: UpdateTransactionInput!) {
+    updateTransaction(id: $id, data: $data) {
+      ...TransactionFields
+    }
+  }
+`
+
+export const DELETE_TRANSACTION = gql`
+  mutation DeleteTransaction($id: ID!) {
+    deleteTransaction(id: $id)
+  }
+`

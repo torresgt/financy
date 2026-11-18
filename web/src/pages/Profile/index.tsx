@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router'
 import { AppLayout } from '@/components'
 import { Divider } from '@/components/ui'
+import { apolloClient } from '@/lib/apollo'
 import { ENTER_ANIMATION } from '@/lib/motion'
 import { useAuthStore } from '@/stores/auth'
 import { ProfileForm, ProfileIdentity } from './components'
@@ -13,6 +14,7 @@ export function ProfilePage() {
 
   function handleSignOut() {
     signOut()
+    void apolloClient.clearStore()
     navigate('/', { replace: true })
   }
 

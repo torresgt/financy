@@ -5,6 +5,8 @@ import { Pagination } from '@/components/ui/pagination'
 import { Tag } from '@/components/ui/tag'
 import { TransactionTypeBadge } from '@/components/ui/transaction-type-badge'
 import { formatCurrency } from '@/lib/format'
+import { ENTER_ANIMATION, stagger } from '@/lib/motion'
+import { cn } from '@/lib/utils'
 import type { TransactionRowItem } from '../types'
 
 const headerCellClasses =
@@ -17,6 +19,8 @@ export interface TransactionsTableProps {
   totalItems: number
   pageSize: number
   onPageChange: (page: number) => void
+  /** Posição do bloco na sequência de entrada da página. */
+  enterIndex?: number
 }
 
 export function TransactionsTable({
@@ -26,9 +30,16 @@ export function TransactionsTable({
   totalItems,
   pageSize,
   onPageChange,
+  enterIndex = 0,
 }: TransactionsTableProps) {
   return (
-    <section className="flex flex-col overflow-hidden rounded-[12px] border border-gray-200 bg-white">
+    <section
+      className={cn(
+        ENTER_ANIMATION,
+        'flex flex-col overflow-hidden rounded-[12px] border border-gray-200 bg-white',
+      )}
+      style={stagger(enterIndex)}
+    >
       <div className="overflow-x-auto">
         <table className="w-full min-w-[880px] border-collapse">
           <thead>
@@ -42,12 +53,20 @@ export function TransactionsTable({
             </tr>
           </thead>
 
-          <tbody>
-            {transactions.map((transaction) => {
+          {/* A chave pela página reanima as linhas ao trocar de página. */}
+          <tbody key={currentPage}>
+            {transactions.map((transaction, index) => {
               const isIncome = transaction.type === 'INCOME'
 
               return (
-                <tr key={transaction.id} className="h-[72px] border-b border-gray-200">
+                <tr
+                  key={transaction.id}
+                  className={cn(
+                    ENTER_ANIMATION,
+                    'h-[72px] border-b border-gray-200 transition-colors duration-200 hover:bg-gray-100/70',
+                  )}
+                  style={stagger(enterIndex + 1 + index, { step: 40, max: 12 })}
+                >
                   <td className="px-6">
                     <div className="flex items-center gap-4">
                       <CategoryIconBox icon={transaction.icon} color={transaction.color} />

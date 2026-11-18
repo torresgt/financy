@@ -59,9 +59,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
       <div
         className={cn(
-          'flex h-12 w-full items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] transition-colors',
-          'focus-within:border-brand-base',
-          hasError && 'border-gray-300 focus-within:border-danger',
+          'flex h-12 w-full items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] transition-[border-color,box-shadow] duration-200 ease-out',
+          'focus-within:border-brand-base focus-within:ring-4 focus-within:ring-brand-base/10',
+          hasError && 'border-gray-300 focus-within:border-danger focus-within:ring-danger/10',
           disabled && 'cursor-not-allowed opacity-50',
         )}
       >
@@ -119,9 +119,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
       {message && (
         <p
+          key={hasError ? 'error' : 'helper'}
           className={cn(
             'text-xs leading-4 font-normal text-gray-500',
-            hasError && 'text-danger',
+            hasError && 'animate-in text-danger duration-200 fade-in slide-in-from-top-1',
           )}
         >
           {message}

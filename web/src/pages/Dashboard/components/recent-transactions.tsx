@@ -3,26 +3,32 @@ import { CategoryIconBox } from '@/components/category-icon'
 import { TextLink, TextLinkButton } from '@/components/ui/link'
 import { Tag } from '@/components/ui/tag'
 import { formatCurrency } from '@/lib/format'
+import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 import type { RecentTransactionItem } from '../types'
 
 export interface RecentTransactionsProps {
   transactions: RecentTransactionItem[]
   onNewTransaction: () => void
+  /** Posição do bloco na sequência de entrada da página. */
+  enterIndex?: number
   className?: string
 }
 
 export function RecentTransactions({
   transactions,
   onNewTransaction,
+  enterIndex = 0,
   className,
 }: RecentTransactionsProps) {
   return (
     <section
       className={cn(
+        ENTER_ANIMATION,
         'flex flex-col self-start overflow-hidden rounded-[12px] border border-gray-200 bg-white',
         className,
       )}
+      style={stagger(enterIndex)}
     >
       <header className="flex items-center justify-between border-b border-gray-200 py-5 pr-3 pl-6">
         <h2 className="text-xs leading-4 font-medium tracking-[0.6px] text-gray-500 uppercase">
@@ -35,11 +41,18 @@ export function RecentTransactions({
       </header>
 
       <div className="flex flex-col">
-        {transactions.map((transaction) => {
+        {transactions.map((transaction, index) => {
           const isIncome = transaction.type === 'INCOME'
 
           return (
-            <div key={transaction.id} className="flex items-center border-b border-gray-200">
+            <div
+              key={transaction.id}
+              className={cn(
+                ENTER_ANIMATION,
+                'flex items-center border-b border-gray-200 transition-colors duration-200 hover:bg-gray-100/70',
+              )}
+              style={stagger(enterIndex + 1 + index, { step: 50, max: 12 })}
+            >
               <div className="flex h-20 min-w-0 flex-1 items-center gap-4 px-6">
                 <CategoryIconBox icon={transaction.icon} color={transaction.color} />
 

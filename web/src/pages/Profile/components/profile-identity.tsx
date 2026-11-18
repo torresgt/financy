@@ -8,7 +8,11 @@ export interface ProfileIdentityProps {
 export function ProfileIdentity({ name, email }: ProfileIdentityProps) {
   return (
     <div className="flex flex-col items-center gap-6">
-      <Avatar name={name} size="lg" />
+      <Avatar
+        name={name}
+        size="lg"
+        className="animate-in delay-150 duration-500 ease-(--ease-spring) fill-mode-both zoom-in-75 fade-in"
+      />
 
       <div className="flex flex-col items-center gap-0.5 text-center">
         <h1 className="text-xl leading-7 font-semibold text-gray-800">{name}</h1>

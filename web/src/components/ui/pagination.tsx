@@ -19,7 +19,7 @@ export function PaginationButton({
       data-active={active || undefined}
       type={type}
       className={cn(
-        'inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-sm leading-5 font-medium transition-colors outline-none',
+        'inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-sm leading-5 font-medium transition-[color,background-color,border-color,scale] duration-200 ease-out outline-none active:scale-90',
         'focus-visible:ring-2 focus-visible:ring-brand-base/30',
         'disabled:pointer-events-none disabled:opacity-50',
         active

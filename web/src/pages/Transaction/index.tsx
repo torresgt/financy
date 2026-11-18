@@ -33,9 +33,10 @@ export function TransactionsPage() {
           }
         />
 
-        <TransactionsFilters value={filters} onChange={setFilters} />
+        <TransactionsFilters enterIndex={1} value={filters} onChange={setFilters} />
 
         <TransactionsTable
+          enterIndex={2}
           transactions={TRANSACTIONS_DATA}
           currentPage={currentPage}
           totalPages={PAGINATION_MOCK.totalPages}

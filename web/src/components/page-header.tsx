@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { ENTER_ANIMATION } from '@/lib/motion'
 
 export interface PageHeaderProps {
   title: string
@@ -9,7 +10,7 @@ export interface PageHeaderProps {
 
 export function PageHeader({ title, description, action }: PageHeaderProps) {
   return (
-    <header className="flex flex-wrap items-center justify-between gap-4">
+    <header className={`${ENTER_ANIMATION} flex flex-wrap items-center justify-between gap-4`}>
       <div className="flex flex-col gap-0.5">
         <h1 className="text-2xl leading-8 font-bold text-gray-800">{title}</h1>
         {description && (

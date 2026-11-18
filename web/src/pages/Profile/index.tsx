@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router'
 import { AppLayout } from '@/components/app-layout'
 import { Divider } from '@/components/ui/divider'
+import { ENTER_ANIMATION } from '@/lib/motion'
 import { useAuthStore } from '@/stores/auth'
 import { ProfileForm } from './components/profile-form'
 import { ProfileIdentity } from './components/profile-identity'
@@ -18,7 +19,9 @@ export function ProfilePage() {
 
   return (
     <AppLayout>
-      <section className="mx-auto flex w-full max-w-md flex-col gap-8 rounded-[12px] border border-gray-200 bg-white p-8">
+      <section
+        className={`${ENTER_ANIMATION} mx-auto flex w-full max-w-md flex-col gap-8 rounded-[12px] border border-gray-200 bg-white p-8`}
+      >
         <ProfileIdentity name={user.name} email={user.email} />
 
         <Divider className="border-gray-200" />

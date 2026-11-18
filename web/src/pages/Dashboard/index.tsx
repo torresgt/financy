@@ -2,6 +2,7 @@ import { CircleArrowDown, CircleArrowUp, Wallet } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { AppLayout } from '@/components/app-layout'
+import { stagger } from '@/lib/motion'
 import { NewTransactionDialog } from '@/pages/Transaction/components/new-transaction-dialog'
 import { CategoriesOverview } from './components/categories-overview'
 import { RecentTransactions } from './components/recent-transactions'
@@ -23,25 +24,29 @@ export function DashboardPage() {
           icon={<Wallet className="text-purple-base" />}
           label="Saldo total"
           value={SUMMARY_MOCK.balance}
+          style={stagger(0)}
         />
         <SummaryCard
           icon={<CircleArrowUp className="text-brand-base" />}
           label="Receitas do mês"
           value={SUMMARY_MOCK.monthIncome}
+          style={stagger(1)}
         />
         <SummaryCard
           icon={<CircleArrowDown className="text-red-base" />}
           label="Despesas do mês"
           value={SUMMARY_MOCK.monthExpense}
+          style={stagger(2)}
         />
 
         <RecentTransactions
           className="lg:col-span-2"
+          enterIndex={3}
           transactions={RECENT_TRANSACTIONS}
           onNewTransaction={() => setIsNewTransactionOpen(true)}
         />
 
-        <CategoriesOverview categories={CATEGORIES_SUMMARY} />
+        <CategoriesOverview enterIndex={4} categories={CATEGORIES_SUMMARY} />
       </div>
 
       <NewTransactionDialog

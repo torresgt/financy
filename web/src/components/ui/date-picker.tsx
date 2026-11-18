@@ -50,6 +50,13 @@ export function DatePicker({
 
   const [open, setOpen] = useState(false)
   const [month, setMonth] = useState(() => startOfMonth(value ?? new Date()))
+  // Direção da última navegação, para os dias entrarem pelo lado certo.
+  const [direction, setDirection] = useState<'prev' | 'next' | null>(null)
+
+  function goToMonth(next: 'prev' | 'next') {
+    setDirection(next)
+    setMonth((current) => (next === 'next' ? addMonths(current, 1) : subMonths(current, 1)))
+  }
 
   const days = eachDayOfInterval({
     start: startOfWeek(startOfMonth(month)),
@@ -57,7 +64,10 @@ export function DatePicker({
   })
 
   function handleOpenChange(nextOpen: boolean) {
-    if (nextOpen) setMonth(startOfMonth(value ?? new Date()))
+    if (nextOpen) {
+      setDirection(null)
+      setMonth(startOfMonth(value ?? new Date()))
+    }
     setOpen(nextOpen)
   }
 
@@ -93,10 +103,11 @@ export function DatePicker({
           disabled={disabled}
           aria-invalid={hasError || undefined}
           className={cn(
-            'flex h-12 w-full cursor-pointer items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] text-left text-base leading-[18px] font-normal transition-colors outline-none',
-            'focus:border-brand-base data-[state=open]:border-brand-base',
+            'flex h-12 w-full cursor-pointer items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] text-left text-base leading-[18px] font-normal transition-[border-color,box-shadow] duration-200 ease-out outline-none',
+            'focus:border-brand-base focus:ring-4 focus:ring-brand-base/10 data-[state=open]:border-brand-base data-[state=open]:ring-4 data-[state=open]:ring-brand-base/10',
             value ? 'text-gray-800' : 'text-gray-400',
-            hasError && 'focus:border-danger data-[state=open]:border-danger',
+            hasError &&
+              'focus:border-danger focus:ring-danger/10 data-[state=open]:border-danger data-[state=open]:ring-danger/10',
             disabled && 'cursor-not-allowed opacity-50',
           )}
         >
@@ -111,23 +122,37 @@ export function DatePicker({
             align="start"
             sideOffset={8}
             className={cn(
-              'z-50 flex w-[280px] flex-col gap-3 rounded-lg border border-gray-300 bg-white p-3 shadow-[0px_4px_7.5px_rgba(0,0,0,0.1)] outline-none',
+              'z-50 flex w-[280px] flex-col gap-3 overflow-hidden rounded-lg border border-gray-300 bg-white p-3 shadow-[0px_4px_7.5px_rgba(0,0,0,0.1)] outline-none',
+              'origin-(--radix-popover-content-transform-origin) duration-200 ease-(--ease-out-expo)',
               'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+              'data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2',
             )}
           >
             <div className="flex items-center justify-between">
-              <IconButton aria-label="Mês anterior" onClick={() => setMonth((m) => subMonths(m, 1))}>
+              <IconButton aria-label="Mês anterior" onClick={() => goToMonth('prev')}>
                 <ChevronLeft />
               </IconButton>
-              <span className="text-sm leading-5 font-semibold text-gray-800 capitalize">
+              <span
+                key={month.toISOString()}
+                aria-live="polite"
+                className="animate-in text-sm leading-5 font-semibold text-gray-800 capitalize duration-300 fade-in"
+              >
                 {format(month, 'MMMM yyyy', { locale: ptBR })}
               </span>
-              <IconButton aria-label="Próximo mês" onClick={() => setMonth((m) => addMonths(m, 1))}>
+              <IconButton aria-label="Próximo mês" onClick={() => goToMonth('next')}>
                 <ChevronRight />
               </IconButton>
             </div>
 
-            <div className="grid grid-cols-7 gap-1 text-center">
+            <div
+              key={month.toISOString()}
+              className={cn(
+                'grid grid-cols-7 gap-1 text-center',
+                direction && 'animate-in duration-300 ease-(--ease-out-expo) fade-in',
+                direction === 'next' && 'slide-in-from-right-6',
+                direction === 'prev' && 'slide-in-from-left-6',
+              )}
+            >
               {WEEKDAYS.map((weekday, index) => (
                 <span
                   // biome-ignore lint/suspicious/noArrayIndexKey: dias da semana fixos
@@ -150,7 +175,7 @@ export function DatePicker({
                     aria-pressed={selected}
                     aria-label={format(day, "d 'de' MMMM 'de' yyyy", { locale: ptBR })}
                     className={cn(
-                      'flex h-9 cursor-pointer items-center justify-center rounded-lg text-sm leading-5 transition-colors outline-none hover:bg-gray-200 focus-visible:ring-2 focus-visible:ring-brand-base/30',
+                      'flex h-9 cursor-pointer items-center justify-center rounded-lg text-sm leading-5 transition-[color,background-color,scale] duration-200 ease-out outline-none hover:bg-gray-200 focus-visible:ring-2 focus-visible:ring-brand-base/30 active:scale-90',
                       outside ? 'text-gray-400' : 'text-gray-800',
                       isToday(day) && !selected && 'font-semibold text-brand-base',
                       selected && 'bg-brand-base font-medium text-white hover:bg-brand-dark',

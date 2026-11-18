@@ -5,6 +5,7 @@ import { AppLayout } from '@/components/app-layout'
 import type { CategoryIconName } from '@/components/category-icon'
 import { PageHeader } from '@/components/page-header'
 import { Button } from '@/components/ui/button'
+import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import type { CreateCategoryInput } from '@/types/api'
 import { CategoriesSummary } from './components/categories-summary'
 import { CategoryCard } from './components/category-card'
@@ -45,12 +46,18 @@ export function CategoriesPage() {
           }
         />
 
-        <CategoriesSummary categories={categories} totalTransactions={TOTAL_TRANSACTIONS} />
+        <CategoriesSummary
+          enterIndex={1}
+          categories={categories}
+          totalTransactions={TOTAL_TRANSACTIONS}
+        />
 
         <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <CategoryCard
               key={category.id}
+              className={ENTER_ANIMATION}
+              style={stagger(4 + index, { step: 50, max: 12 })}
               title={category.title}
               description={category.description}
               icon={category.icon}

@@ -9,8 +9,8 @@ import { CATEGORY_COLOR_OPTIONS } from '../constants'
 const CUSTOM_VALUE = 'custom'
 
 const tileClasses = cn(
-  'flex h-8 cursor-pointer items-stretch rounded-lg border border-gray-300 bg-white p-1 transition-colors outline-none',
-  'hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-brand-base/30',
+  'flex h-8 cursor-pointer items-stretch rounded-lg border border-gray-300 bg-white p-1 transition-[background-color,border-color,scale] duration-200 ease-out outline-none',
+  'hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-brand-base/30 active:scale-90',
   'data-[state=checked]:border-brand-base data-[state=checked]:bg-gray-100',
 )
 
@@ -87,7 +87,9 @@ export function CategoryColorPicker({
             collisionPadding={16}
             className={cn(
               'z-50 rounded-lg border border-gray-300 bg-white p-3 shadow-[0px_4px_7.5px_rgba(0,0,0,0.1)] outline-none',
+              'origin-(--radix-popover-content-transform-origin) duration-200 ease-(--ease-out-expo)',
               'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+              'data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2',
             )}
           >
             <ColorPickerPanel

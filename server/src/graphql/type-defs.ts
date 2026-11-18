@@ -67,6 +67,17 @@ export const typeDefs = gql`
     password: String!
   }
 
+  input RequestPasswordResetInput {
+    email: String!
+  }
+
+  input ResetPasswordInput {
+    "Token recebido no link enviado por e-mail"
+    token: String!
+    newPassword: String!
+    confirmPassword: String!
+  }
+
   input CreateCategoryInput {
     title: String!
     description: String
@@ -124,6 +135,13 @@ export const typeDefs = gql`
   type Mutation {
     register(data: RegisterInput!): AuthPayload!
     login(data: LoginInput!): AuthPayload!
+    """
+    Envia um link de redefinição de senha, se houver conta com o e-mail.
+    Sempre retorna true, para não revelar quais e-mails estão cadastrados.
+    """
+    requestPasswordReset(data: RequestPasswordResetInput!): Boolean!
+    "Define a nova senha usando o token do link enviado por e-mail"
+    resetPassword(data: ResetPasswordInput!): Boolean!
 
     createCategory(data: CreateCategoryInput!): Category!
     updateCategory(id: ID!, data: UpdateCategoryInput!): Category!

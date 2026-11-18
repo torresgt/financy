@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import { createHash, randomBytes } from 'node:crypto'
 import jwt, { type SignOptions } from 'jsonwebtoken'
 import { env } from '../env.js'
 
@@ -21,6 +22,17 @@ export function signToken(userId: string): string {
     subject: userId,
     expiresIn: env.JWT_EXPIRES_IN as SignOptions['expiresIn'],
   })
+}
+
+/** Gera um token aleatório (256 bits) para o link de redefinição e o seu hash. */
+export function generatePasswordResetToken(): { token: string; tokenHash: string } {
+  const token = randomBytes(32).toString('base64url')
+  return { token, tokenHash: hashPasswordResetToken(token) }
+}
+
+/** SHA-256 do token: é o que fica no banco, nunca o valor original. */
+export function hashPasswordResetToken(token: string): string {
+  return createHash('sha256').update(token).digest('hex')
 }
 
 /** Retorna o id do usuário se o token for válido, ou `null` caso contrário. */

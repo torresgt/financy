@@ -8,6 +8,8 @@ export interface InputProps extends ComponentProps<'input'> {
   error?: string
   leftIcon?: ReactNode
   rightIcon?: ReactNode
+  /** Texto fixo exibido antes do valor (ex.: "R$"). */
+  leftAddon?: ReactNode
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
@@ -20,6 +22,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     error,
     leftIcon,
     rightIcon,
+    leftAddon,
     disabled,
     ...props
   },
@@ -71,6 +74,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             )}
           >
             {leftIcon}
+          </span>
+        )}
+
+        {leftAddon && (
+          <span className="shrink-0 text-base leading-[18px] font-normal text-gray-800">
+            {leftAddon}
           </span>
         )}
 

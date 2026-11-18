@@ -22,11 +22,15 @@ model User {
   @@map("users")
 }
 
-/// Token de uso único para redefinição de senha. Só o hash SHA-256 é guardado;
-/// o valor original vai apenas no link enviado por e-mail.
+/// Pedido de redefinição de senha confirmado por um código de 6 dígitos enviado
+/// por e-mail. O código e a nova senha ficam guardados apenas como hash bcrypt;
+/// a senha só é aplicada quando o código correto é informado.
 model PasswordResetToken {
-  id        String    @id @default(cuid())
-  tokenHash String    @unique @map("token_hash")
+  id              String    @id @default(cuid())
+  codeHash        String    @map("code_hash")
+  newPasswordHash String    @map("new_password_hash")
+  /// Tentativas erradas de código; ao atingir o limite o pedido é invalidado
+  attempts        Int       @default(0)
   userId    String    @map("user_id")
   expiresAt DateTime  @map("expires_at")
   usedAt    DateTime? @map("used_at")

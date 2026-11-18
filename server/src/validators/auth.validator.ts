@@ -18,11 +18,9 @@ export const loginSchema = z.object({
   password: z.string().min(1, 'Informe a senha'),
 })
 
-export const requestPasswordResetSchema = z.object({ email })
-
-export const resetPasswordSchema = z
+export const requestPasswordResetSchema = z
   .object({
-    token: z.string().trim().min(1, 'Link de recuperação inválido'),
+    email,
     newPassword: password,
     confirmPassword: z.string().min(1, 'Confirme a nova senha'),
   })
@@ -31,7 +29,15 @@ export const resetPasswordSchema = z
     path: ['confirmPassword'],
   })
 
+export const confirmPasswordResetSchema = z.object({
+  email,
+  code: z
+    .string()
+    .trim()
+    .regex(/^\d{6}$/, 'Informe o código de 6 dígitos'),
+})
+
 export type RegisterInput = z.infer<typeof registerSchema>
 export type LoginInput = z.infer<typeof loginSchema>
 export type RequestPasswordResetInput = z.infer<typeof requestPasswordResetSchema>
-export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>
+export type ConfirmPasswordResetInput = z.infer<typeof confirmPasswordResetSchema>

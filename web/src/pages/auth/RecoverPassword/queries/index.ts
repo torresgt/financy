@@ -5,3 +5,9 @@ export const REQUEST_PASSWORD_RESET = gql`
     requestPasswordReset(data: $data)
   }
 `
+
+export const CONFIRM_PASSWORD_RESET = gql`
+  mutation ConfirmPasswordReset($data: ConfirmPasswordResetInput!) {
+    confirmPasswordReset(data: $data)
+  }
+`

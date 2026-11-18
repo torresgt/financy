@@ -32,10 +32,9 @@ export const registerSchema = z.object({
   password,
 })
 
-export const recoverPasswordSchema = z.object({ email })
-
-export const resetPasswordSchema = z
+export const recoverPasswordSchema = z
   .object({
+    email,
     newPassword: password,
     confirmPassword: z.string().min(1, 'Confirme a nova senha'),
   })
@@ -46,5 +45,12 @@ export const resetPasswordSchema = z
 
 export type LoginFormValues = z.infer<typeof loginSchema>
 export type RegisterFormValues = z.infer<typeof registerSchema>
+export const resetCodeSchema = z.object({
+  code: z
+    .string()
+    .trim()
+    .regex(/^\d{6}$/, 'Informe o código de 6 dígitos'),
+})
+
 export type RecoverPasswordFormValues = z.infer<typeof recoverPasswordSchema>
-export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>
+export type ResetCodeFormValues = z.infer<typeof resetCodeSchema>

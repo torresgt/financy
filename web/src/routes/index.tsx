@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from 'react-router'
 import { LoginPage } from '@/pages/auth/Login'
 import { RecoverPasswordPage } from '@/pages/auth/RecoverPassword'
 import { RegisterPage } from '@/pages/auth/Register'
-import { ResetPasswordPage } from '@/pages/auth/ResetPassword'
 import { CategoriesPage } from '@/pages/Categories'
 import { DashboardPage } from '@/pages/Dashboard'
 import { ProfilePage } from '@/pages/Profile'
@@ -24,9 +23,6 @@ export function AppRoutes() {
         <Route path="/categorias" element={<CategoriesPage />} />
         <Route path="/perfil" element={<ProfilePage />} />
       </Route>
-
-      {/* Acessível com ou sem sessão: o link chega por e-mail */}
-      <Route path="/redefinir-senha" element={<ResetPasswordPage />} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

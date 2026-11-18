@@ -58,13 +58,14 @@ export interface LoginInput {
 
 export interface RequestPasswordResetInput {
   email: string
-}
-
-export interface ResetPasswordInput {
-  /** Token recebido no link enviado por e-mail */
-  token: string
   newPassword: string
   confirmPassword: string
+}
+
+export interface ConfirmPasswordResetInput {
+  email: string
+  /** Código de 6 dígitos recebido por e-mail */
+  code: string
 }
 
 export interface CreateCategoryInput {

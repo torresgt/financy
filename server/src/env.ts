@@ -11,9 +11,8 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1, 'DATABASE_URL é obrigatório'),
   CORS_ORIGIN: z.string().default('*'),
 
-  /** URL pública do front-end, usada para montar o link de redefinição de senha. */
-  APP_URL: z.url().default('http://localhost:5173'),
-  PASSWORD_RESET_TOKEN_TTL_MINUTES: z.coerce.number().int().positive().default(30),
+  /** Validade, em minutos, do código de redefinição de senha enviado por e-mail. */
+  PASSWORD_RESET_CODE_TTL_MINUTES: z.coerce.number().int().positive().default(15),
 
   // SMTP (opcional em desenvolvimento: sem SMTP_HOST o link é exibido no console)
   SMTP_HOST: z.string().optional(),

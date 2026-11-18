@@ -69,13 +69,14 @@ export const typeDefs = gql`
 
   input RequestPasswordResetInput {
     email: String!
-  }
-
-  input ResetPasswordInput {
-    "Token recebido no link enviado por e-mail"
-    token: String!
     newPassword: String!
     confirmPassword: String!
+  }
+
+  input ConfirmPasswordResetInput {
+    email: String!
+    "Código de 6 dígitos recebido por e-mail"
+    code: String!
   }
 
   input CreateCategoryInput {
@@ -136,12 +137,13 @@ export const typeDefs = gql`
     register(data: RegisterInput!): AuthPayload!
     login(data: LoginInput!): AuthPayload!
     """
-    Envia um link de redefinição de senha, se houver conta com o e-mail.
-    Sempre retorna true, para não revelar quais e-mails estão cadastrados.
+    Registra a nova senha como pendente e envia um código de 6 dígitos, se houver
+    conta com o e-mail. Sempre retorna true, para não revelar quais e-mails estão
+    cadastrados.
     """
     requestPasswordReset(data: RequestPasswordResetInput!): Boolean!
-    "Define a nova senha usando o token do link enviado por e-mail"
-    resetPassword(data: ResetPasswordInput!): Boolean!
+    "Confirma o pedido com o código recebido por e-mail e aplica a nova senha"
+    confirmPasswordReset(data: ConfirmPasswordResetInput!): Boolean!
 
     createCategory(data: CreateCategoryInput!): Category!
     updateCategory(id: ID!, data: UpdateCategoryInput!): Category!

@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router'
+import { CategoriesPage } from '@/pages/categories'
 import { DashboardPage } from '@/pages/dashboard'
 import { ForgotPasswordPage } from '@/pages/forgot-password'
 import { LoginPage } from '@/pages/login'
@@ -13,6 +14,7 @@ export function AppRoutes() {
       <Route path="/recuperar-senha" element={<ForgotPasswordPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/transacoes" element={<TransactionsPage />} />
+      <Route path="/categorias" element={<CategoriesPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

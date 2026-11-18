@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import type { ComponentProps } from 'react'
 import type { CategoryColor } from '@/components/ui/tag'
+import { customColorStyles, isHexColor } from '@/lib/color'
 import { cn } from '@/lib/utils'
 
 export type CategoryIconName =
@@ -74,25 +75,29 @@ const colorStyles: Record<CategoryColor, string> = {
 
 export interface CategoryIconBoxProps extends Omit<ComponentProps<'div'>, 'color'> {
   icon?: CategoryIconName | (string & {})
-  color?: CategoryColor
+  /** Cor da paleta ou hexadecimal personalizado (#rrggbb). */
+  color?: CategoryColor | (string & {})
 }
 
 export function CategoryIconBox({
   icon = 'tag',
   color = 'blue',
   className,
+  style,
   ...props
 }: CategoryIconBoxProps) {
   const IconComponent = CATEGORY_ICONS[icon as CategoryIconName] ?? TagIcon
+  const custom = isHexColor(color) ? customColorStyles(color) : null
 
   return (
     <div
       data-slot="category-icon"
       className={cn(
         'flex size-10 shrink-0 items-center justify-center rounded-lg [&_svg]:size-4',
-        colorStyles[color] ?? colorStyles.blue,
+        !custom && (colorStyles[color as CategoryColor] ?? colorStyles.blue),
         className,
       )}
+      style={custom ? { backgroundColor: custom.background, color: custom.base, ...style } : style}
       {...props}
     >
       <IconComponent />

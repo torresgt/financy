@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority'
 import type { ComponentProps } from 'react'
+import { customColorStyles, isHexColor } from '@/lib/color'
 import { cn } from '@/lib/utils'
 
 export type CategoryColor =
@@ -35,10 +36,32 @@ const tagVariants = cva(
 
 export interface TagProps
   extends Omit<ComponentProps<'span'>, 'color'>,
-    VariantProps<typeof tagVariants> {}
+    Omit<VariantProps<typeof tagVariants>, 'color'> {
+  /** Cor da paleta ou hexadecimal personalizado (#rrggbb). */
+  color?: CategoryColor | (string & {}) | null
+}
 
-export function Tag({ className, color, ...props }: TagProps) {
-  return <span data-slot="tag" className={cn(tagVariants({ color, className }))} {...props} />
+export function Tag({ className, color, style, ...props }: TagProps) {
+  if (isHexColor(color)) {
+    const custom = customColorStyles(color)
+    return (
+      <span
+        data-slot="tag"
+        className={cn(tagVariants({ color: null }), className)}
+        style={{ backgroundColor: custom.background, color: custom.dark, ...style }}
+        {...props}
+      />
+    )
+  }
+
+  return (
+    <span
+      data-slot="tag"
+      className={cn(tagVariants({ color: color as CategoryColor | null | undefined, className }))}
+      style={style}
+      {...props}
+    />
+  )
 }
 
 export { tagVariants }

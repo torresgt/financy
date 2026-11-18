@@ -3,6 +3,7 @@ import { CategoriesPage } from '@/pages/categories'
 import { DashboardPage } from '@/pages/dashboard'
 import { ForgotPasswordPage } from '@/pages/forgot-password'
 import { LoginPage } from '@/pages/login'
+import { ProfilePage } from '@/pages/profile'
 import { SignUpPage } from '@/pages/sign-up'
 import { TransactionsPage } from '@/pages/transactions'
 
@@ -15,6 +16,7 @@ export function AppRoutes() {
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/transacoes" element={<TransactionsPage />} />
       <Route path="/categorias" element={<CategoriesPage />} />
+      <Route path="/perfil" element={<ProfilePage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

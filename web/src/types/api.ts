@@ -56,6 +56,17 @@ export interface LoginInput {
   password: string
 }
 
+export interface RequestPasswordResetInput {
+  email: string
+}
+
+export interface ResetPasswordInput {
+  /** Token recebido no link enviado por e-mail */
+  token: string
+  newPassword: string
+  confirmPassword: string
+}
+
 export interface CreateCategoryInput {
   title: string
   description?: string | null

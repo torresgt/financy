@@ -1,7 +1,9 @@
 import { Plus, Search, SquarePen, Trash } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { AppLayout } from '@/components/app-layout'
 import { CategoryIconBox, type CategoryIconName } from '@/components/category-icon'
+import { NewTransactionDialog } from '@/components/new-transaction-dialog'
 import { Button } from '@/components/ui/button'
 import { IconButton } from '@/components/ui/icon-button'
 import { Input } from '@/components/ui/input'
@@ -136,6 +138,7 @@ export function TransactionsPage() {
   const [categoryFilter, setCategoryFilter] = useState('ALL')
   const [periodFilter, setPeriodFilter] = useState('2025-11')
   const [currentPage, setCurrentPage] = useState(1)
+  const [isNewTransactionOpen, setIsNewTransactionOpen] = useState(false)
 
   return (
     <AppLayout>
@@ -149,7 +152,7 @@ export function TransactionsPage() {
             </p>
           </div>
 
-          <Button variant="solid" size="sm">
+          <Button variant="solid" size="sm" onClick={() => setIsNewTransactionOpen(true)}>
             <Plus />
             Nova transação
           </Button>
@@ -284,6 +287,15 @@ export function TransactionsPage() {
           />
         </section>
       </div>
+
+      <NewTransactionDialog
+        open={isNewTransactionOpen}
+        onOpenChange={setIsNewTransactionOpen}
+        categories={CATEGORY_OPTIONS.filter((option) => option.value !== 'ALL')}
+        onSubmit={() => {
+          toast.success('Transação registrada com sucesso')
+        }}
+      />
     </AppLayout>
   )
 }

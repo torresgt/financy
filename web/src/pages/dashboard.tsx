@@ -1,6 +1,9 @@
 import { ChevronRight, CircleArrowDown, CircleArrowUp, Plus, Wallet } from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'sonner'
 import { AppLayout } from '@/components/app-layout'
 import { CategoryIconBox, type CategoryIconName } from '@/components/category-icon'
+import { NewTransactionDialog } from '@/components/new-transaction-dialog'
 import { TextLink, TextLinkButton } from '@/components/ui/link'
 import { Tag, type CategoryColor } from '@/components/ui/tag'
 import { formatCurrency } from '@/lib/format'
@@ -87,6 +90,8 @@ const CATEGORIES_SUMMARY: CategorySummaryItem[] = [
 ]
 
 export function DashboardPage() {
+  const [isNewTransactionOpen, setIsNewTransactionOpen] = useState(false)
+
   return (
     <AppLayout>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -184,7 +189,7 @@ export function DashboardPage() {
           </div>
 
           <footer className="flex items-center justify-center px-6 py-5">
-            <TextLinkButton>
+            <TextLinkButton onClick={() => setIsNewTransactionOpen(true)}>
               <Plus className="size-5" />
               Nova transação
             </TextLinkButton>
@@ -220,6 +225,18 @@ export function DashboardPage() {
           </div>
         </section>
       </div>
+
+      <NewTransactionDialog
+        open={isNewTransactionOpen}
+        onOpenChange={setIsNewTransactionOpen}
+        categories={CATEGORIES_SUMMARY.map((category) => ({
+          value: category.id,
+          label: category.title,
+        }))}
+        onSubmit={() => {
+          toast.success('Transação registrada com sucesso')
+        }}
+      />
     </AppLayout>
   )
 }

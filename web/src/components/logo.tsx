@@ -11,7 +11,7 @@ export function Logo({ className, alt = 'Financy', ...props }: LogoProps) {
       alt={alt}
       width={134}
       height={32}
-      className={cn('h-8 w-[134px] shrink-0 select-none', className)}
+      className={cn('h-8 w-33.5 shrink-0 select-none', className)}
       {...props}
     />
   )

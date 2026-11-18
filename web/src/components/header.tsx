@@ -15,9 +15,9 @@ export interface HeaderProps {
 export function Header({ initials = 'CT' }: HeaderProps) {
   return (
     <header className="w-full border-b border-gray-200 bg-white px-6 py-4 sm:px-12">
-      <div className="relative mx-auto flex max-w-[1280px] items-center justify-between">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between">
         <Link to="/dashboard" aria-label="Financy - Ir para o Dashboard">
-          <Logo className="h-6 w-[100px]" />
+          <Logo className="h-6 w-25" />
         </Link>
 
         <nav

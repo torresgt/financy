@@ -1,7 +1,7 @@
 import { Plus } from 'lucide-react'
 import { Popover as PopoverPrimitive, RadioGroup as RadioGroupPrimitive } from 'radix-ui'
 import { useState } from 'react'
-import { ColorPickerPanel } from '@/components/ui/color-picker-panel'
+import { ColorPickerPanel } from '@/components/ui'
 import { isHexColor } from '@/lib/color'
 import { cn } from '@/lib/utils'
 import { CATEGORY_COLOR_OPTIONS } from '../constants'
@@ -87,7 +87,7 @@ export function CategoryColorPicker({
             collisionPadding={16}
             className={cn(
               'z-50 rounded-lg border border-gray-300 bg-white p-3 shadow-[0px_4px_7.5px_rgba(0,0,0,0.1)] outline-none',
-              'origin-(--radix-popover-content-transform-origin) duration-200 ease-(--ease-out-expo)',
+              'origin-(--radix-popover-content-transform-origin) duration-200 ease-out-expo',
               'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
               'data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2',
             )}

@@ -1,15 +1,11 @@
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { AppLayout } from '@/components/app-layout'
-import type { CategoryIconName } from '@/components/category-icon'
-import { PageHeader } from '@/components/page-header'
-import { Button } from '@/components/ui/button'
+import { AppLayout, type CategoryIconName, PageHeader } from '@/components'
+import { Button } from '@/components/ui'
 import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import type { CreateCategoryInput } from '@/types/api'
-import { CategoriesSummary } from './components/categories-summary'
-import { CategoryCard } from './components/category-card'
-import { NewCategoryDialog } from './components/new-category-dialog'
+import { CategoriesSummary, CategoryCard, NewCategoryDialog } from './components'
 import { CATEGORIES_DATA, TOTAL_TRANSACTIONS } from './constants'
 
 export function CategoriesPage() {

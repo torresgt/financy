@@ -43,7 +43,7 @@ export function TransactionTypeToggle({ value, onValueChange, className }: Trans
           aria-hidden
           className={cn(
             'pointer-events-none absolute top-2 bottom-2 left-2 w-[calc(50%-12px)] rounded-lg border bg-gray-100',
-            'transition-[translate,border-color] duration-300 ease-(--ease-out-expo)',
+            'transition-[translate,border-color] duration-300 ease-out-expo',
             value === 'INCOME' ? 'translate-x-[calc(100%+8px)] border-success' : 'border-danger',
           )}
         />
@@ -57,7 +57,7 @@ export function TransactionTypeToggle({ value, onValueChange, className }: Trans
             'relative flex h-11 cursor-pointer items-center justify-center gap-3 rounded-lg text-base leading-6 font-normal text-gray-600 transition-[color,background-color,scale] duration-200 ease-out outline-none',
             'hover:text-gray-800 focus-visible:ring-2 focus-visible:ring-brand-base/30 active:scale-[0.98]',
             'data-[state=on]:font-medium data-[state=on]:text-gray-800',
-            '[&_svg]:size-4 [&_svg]:text-gray-400 [&_svg]:transition-[color,scale] [&_svg]:duration-300 [&_svg]:ease-(--ease-spring) [&[data-state=on]_svg]:scale-110',
+            '[&_svg]:size-4 [&_svg]:text-gray-400 [&_svg]:transition-[color,scale] [&_svg]:duration-300 [&_svg]:ease-spring [&[data-state=on]_svg]:scale-110',
             activeIconClasses,
           )}
         >

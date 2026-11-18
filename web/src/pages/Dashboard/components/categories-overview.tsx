@@ -1,6 +1,5 @@
 import { ChevronRight } from 'lucide-react'
-import { TextLink } from '@/components/ui/link'
-import { Tag } from '@/components/ui/tag'
+import { TextLink, Tag } from '@/components/ui'
 import { formatCurrency } from '@/lib/format'
 import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import { cn } from '@/lib/utils'
@@ -44,7 +43,7 @@ export function CategoriesOverview({ categories, enterIndex = 0 }: CategoriesOve
               {category.itemsCount} {category.itemsCount === 1 ? 'item' : 'itens'}
             </span>
 
-            <span className="w-[88px] shrink-0 text-right text-sm leading-5 font-semibold text-gray-800">
+            <span className="w-22 shrink-0 text-right text-sm leading-5 font-semibold text-gray-800">
               {formatCurrency(category.totalAmount)}
             </span>
           </div>

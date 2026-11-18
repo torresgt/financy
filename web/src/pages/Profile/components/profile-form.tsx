@@ -1,7 +1,6 @@
 import { LogOut, Mail, UserRound } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Button, Input } from '@/components/ui'
 
 export interface ProfileFormProps {
   name: string
@@ -45,7 +44,7 @@ export function ProfileForm({ name: initialName, email, onSignOut }: ProfileForm
         </Button>
 
         <Button variant="outline" size="md" className="w-full" onClick={onSignOut}>
-          <LogOut className="size-[18px] text-danger" />
+          <LogOut className="size-4.5 text-danger" />
           Sair da conta
         </Button>
       </div>

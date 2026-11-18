@@ -1,9 +1,6 @@
 import { SquarePen, Trash } from 'lucide-react'
-import { CategoryIconBox } from '@/components/category-icon'
-import { IconButton } from '@/components/ui/icon-button'
-import { Pagination } from '@/components/ui/pagination'
-import { Tag } from '@/components/ui/tag'
-import { TransactionTypeBadge } from '@/components/ui/transaction-type-badge'
+import { CategoryIconBox } from '@/components'
+import { IconButton, Pagination, Tag, TransactionTypeBadge } from '@/components/ui'
 import { formatCurrency } from '@/lib/format'
 import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import { cn } from '@/lib/utils'
@@ -41,15 +38,15 @@ export function TransactionsTable({
       style={stagger(enterIndex)}
     >
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[880px] border-collapse">
+        <table className="w-full min-w-220 border-collapse">
           <thead>
             <tr className="border-b border-gray-200">
               <th className={`${headerCellClasses} text-left`}>Descrição</th>
-              <th className={`${headerCellClasses} w-[112px] text-center`}>Data</th>
-              <th className={`${headerCellClasses} w-[200px] text-center`}>Categoria</th>
-              <th className={`${headerCellClasses} w-[136px] text-center`}>Tipo</th>
-              <th className={`${headerCellClasses} w-[200px] text-right`}>Valor</th>
-              <th className={`${headerCellClasses} w-[120px] text-right`}>Ações</th>
+              <th className={`${headerCellClasses} w-28 text-center`}>Data</th>
+              <th className={`${headerCellClasses} w-50 text-center`}>Categoria</th>
+              <th className={`${headerCellClasses} w-34 text-center`}>Tipo</th>
+              <th className={`${headerCellClasses} w-50 text-right`}>Valor</th>
+              <th className={`${headerCellClasses} w-30 text-right`}>Ações</th>
             </tr>
           </thead>
 
@@ -63,7 +60,7 @@ export function TransactionsTable({
                   key={transaction.id}
                   className={cn(
                     ENTER_ANIMATION,
-                    'h-[72px] border-b border-gray-200 transition-colors duration-200 hover:bg-gray-100/70',
+                    'h-18 border-b border-gray-200 transition-colors duration-200 hover:bg-gray-100/70',
                   )}
                   style={stagger(enterIndex + 1 + index, { step: 40, max: 12 })}
                 >
@@ -76,24 +73,24 @@ export function TransactionsTable({
                     </div>
                   </td>
 
-                  <td className="w-[112px] px-6 text-center text-sm leading-5 font-normal whitespace-nowrap text-gray-600">
+                  <td className="w-28 px-6 text-center text-sm leading-5 font-normal whitespace-nowrap text-gray-600">
                     {transaction.date}
                   </td>
 
-                  <td className="w-[200px] px-6 text-center">
+                  <td className="w-50 px-6 text-center">
                     <Tag color={transaction.color}>{transaction.category}</Tag>
                   </td>
 
-                  <td className="w-[136px] px-6 text-center">
+                  <td className="w-34 px-6 text-center">
                     <TransactionTypeBadge type={transaction.type} />
                   </td>
 
-                  <td className="w-[200px] px-6 text-right text-sm leading-5 font-semibold whitespace-nowrap text-gray-800">
+                  <td className="w-50 px-6 text-right text-sm leading-5 font-semibold whitespace-nowrap text-gray-800">
                     {isIncome ? '+ ' : '- '}
                     {formatCurrency(transaction.amount)}
                   </td>
 
-                  <td className="w-[120px] px-6">
+                  <td className="w-30 px-6">
                     <div className="flex items-center justify-end gap-2">
                       <IconButton variant="danger" aria-label={`Excluir ${transaction.description}`}>
                         <Trash />

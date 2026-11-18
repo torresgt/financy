@@ -1,4 +1,4 @@
-import { Avatar } from '@/components/ui/avatar'
+import { Avatar } from '@/components/ui'
 
 export interface ProfileIdentityProps {
   name: string
@@ -11,7 +11,7 @@ export function ProfileIdentity({ name, email }: ProfileIdentityProps) {
       <Avatar
         name={name}
         size="lg"
-        className="animate-in delay-150 duration-500 ease-(--ease-spring) fill-mode-both zoom-in-75 fade-in"
+        className="animate-in delay-150 duration-500 ease-spring fill-mode-both zoom-in-75 fade-in"
       />
 
       <div className="flex flex-col items-center gap-0.5 text-center">

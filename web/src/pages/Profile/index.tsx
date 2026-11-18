@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router'
-import { AppLayout } from '@/components/app-layout'
-import { Divider } from '@/components/ui/divider'
+import { AppLayout } from '@/components'
+import { Divider } from '@/components/ui'
 import { ENTER_ANIMATION } from '@/lib/motion'
 import { useAuthStore } from '@/stores/auth'
-import { ProfileForm } from './components/profile-form'
-import { ProfileIdentity } from './components/profile-identity'
+import { ProfileForm, ProfileIdentity } from './components'
 import { FALLBACK_USER } from './constants'
 
 export function ProfilePage() {

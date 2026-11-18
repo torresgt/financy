@@ -1,6 +1,5 @@
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { SelectField } from '@/components/ui/select'
+import { Input, SelectField } from '@/components/ui'
 import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 import { CATEGORY_OPTIONS, PERIOD_OPTIONS, TYPE_OPTIONS } from '../constants'

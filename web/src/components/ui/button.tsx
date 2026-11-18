@@ -13,7 +13,7 @@ const buttonVariants = cva(
         ghost: 'text-gray-700 hover:bg-gray-200',
       },
       size: {
-        md: 'h-12 px-4 py-3 text-base leading-6 [&_svg:not([class*="size-"])]:size-[18px]',
+        md: 'h-12 px-4 py-3 text-base leading-6 [&_svg:not([class*="size-"])]:size-4.5',
         sm: 'h-9 px-3 py-2 text-sm leading-5 [&_svg:not([class*="size-"])]:size-4',
         icon: 'size-8 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-200 [&_svg:not([class*="size-"])]:size-4',
       },

@@ -1,14 +1,13 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useId } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import type { CreateCategoryInput } from '@/types/api'
+import { Button, Dialog, DialogContent, Input } from '@/components/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { categoryFormSchema, type CategoryFormValues } from '../schemas/category-form'
 import { DEFAULT_CATEGORY_COLOR, DEFAULT_CATEGORY_ICON } from '../constants'
-import { type CategoryFormValues, categoryFormSchema } from '../schemas/category-form'
-import { CategoryColorPicker } from './category-color-picker'
 import { CategoryIconPicker } from './category-icon-picker'
+import { CategoryColorPicker } from './category-color-picker'
+import type { CreateCategoryInput } from '@/types/api'
+
 
 export interface NewCategoryDialogProps {
   open: boolean

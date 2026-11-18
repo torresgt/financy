@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { AnimatedNumber } from '@/components/animated-number'
+import { AnimatedNumber } from '@/components'
 import { formatCurrency } from '@/lib/format'
 import { ENTER_ANIMATION } from '@/lib/motion'
 import { cn } from '@/lib/utils'

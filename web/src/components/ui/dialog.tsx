@@ -33,8 +33,8 @@ export function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          'fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-[448px] -translate-x-1/2 -translate-y-1/2 flex-col gap-6 overflow-y-auto rounded-[12px] border border-gray-200 bg-white p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.12)] outline-none',
-          'duration-300 ease-(--ease-out-expo) data-[state=closed]:duration-150 data-[state=closed]:ease-in',
+          'fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 flex-col gap-6 overflow-y-auto rounded-[12px] border border-gray-200 bg-white p-6 shadow-[0px_10px_30px_rgba(0,0,0,0.12)] outline-none',
+          'duration-300 ease-out-expo data-[state=closed]:duration-150 data-[state=closed]:ease-in',
           'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
           'data-[state=open]:slide-in-from-bottom-4 data-[state=closed]:slide-out-to-bottom-2',
           className,
@@ -57,7 +57,7 @@ export function DialogContent({
           <DialogPrimitive.Close asChild>
             <IconButton
               aria-label="Fechar"
-              className="[&_svg]:transition-transform [&_svg]:duration-300 [&_svg]:ease-(--ease-out-expo) hover:[&_svg]:rotate-90"
+              className="[&_svg]:transition-transform [&_svg]:duration-300 [&_svg]:ease-out-expo hover:[&_svg]:rotate-90"
             >
               <X />
             </IconButton>

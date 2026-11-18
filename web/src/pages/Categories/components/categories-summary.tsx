@@ -1,6 +1,5 @@
 import { ArrowUpDown, Tag as TagIcon } from 'lucide-react'
-import { AnimatedNumber } from '@/components/animated-number'
-import { CATEGORY_ICONS } from '@/components/category-icon'
+import { AnimatedNumber, CATEGORY_ICONS } from '@/components'
 import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import type { CategoryItem } from '../types'
 import { getMostUsedCategory } from '../utils/get-most-used-category'

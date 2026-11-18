@@ -19,7 +19,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import type { ComponentProps } from 'react'
-import type { CategoryColor } from '@/components/ui/tag'
+import type { CategoryColor } from '@/components/ui'
 import { customColorStyles, isHexColor } from '@/lib/color'
 import { cn } from '@/lib/utils'
 

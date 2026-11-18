@@ -1,12 +1,9 @@
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { AppLayout } from '@/components/app-layout'
-import { PageHeader } from '@/components/page-header'
-import { Button } from '@/components/ui/button'
-import { NewTransactionDialog } from './components/new-transaction-dialog'
-import { TransactionsFilters } from './components/transactions-filters'
-import { TransactionsTable } from './components/transactions-table'
+import { AppLayout, PageHeader } from '@/components'
+import { Button } from '@/components/ui'
+import { NewTransactionDialog, TransactionsFilters, TransactionsTable } from './components'
 import {
   CATEGORY_FORM_OPTIONS,
   INITIAL_FILTERS,

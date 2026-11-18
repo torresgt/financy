@@ -103,7 +103,7 @@ export function DatePicker({
           disabled={disabled}
           aria-invalid={hasError || undefined}
           className={cn(
-            'flex h-12 w-full cursor-pointer items-center gap-3 rounded-lg border border-gray-300 bg-white px-[13px] py-[15px] text-left text-base leading-[18px] font-normal transition-[border-color,box-shadow] duration-200 ease-out outline-none',
+            'flex h-12 w-full cursor-pointer items-center gap-3 rounded-lg border border-gray-300 bg-white px-3.25 py-3.75 text-left text-base leading-4.5 font-normal transition-[border-color,box-shadow] duration-200 ease-out outline-none',
             'focus:border-brand-base focus:ring-4 focus:ring-brand-base/10 data-[state=open]:border-brand-base data-[state=open]:ring-4 data-[state=open]:ring-brand-base/10',
             value ? 'text-gray-800' : 'text-gray-400',
             hasError &&
@@ -122,8 +122,8 @@ export function DatePicker({
             align="start"
             sideOffset={8}
             className={cn(
-              'z-50 flex w-[280px] flex-col gap-3 overflow-hidden rounded-lg border border-gray-300 bg-white p-3 shadow-[0px_4px_7.5px_rgba(0,0,0,0.1)] outline-none',
-              'origin-(--radix-popover-content-transform-origin) duration-200 ease-(--ease-out-expo)',
+              'z-50 flex w-70 flex-col gap-3 overflow-hidden rounded-lg border border-gray-300 bg-white p-3 shadow-[0px_4px_7.5px_rgba(0,0,0,0.1)] outline-none',
+              'origin-(--radix-popover-content-transform-origin) duration-200 ease-out-expo',
               'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
               'data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2',
             )}
@@ -148,7 +148,7 @@ export function DatePicker({
               key={month.toISOString()}
               className={cn(
                 'grid grid-cols-7 gap-1 text-center',
-                direction && 'animate-in duration-300 ease-(--ease-out-expo) fade-in',
+                direction && 'animate-in duration-300 ease-out-expo fade-in',
                 direction === 'next' && 'slide-in-from-right-6',
                 direction === 'prev' && 'slide-in-from-left-6',
               )}

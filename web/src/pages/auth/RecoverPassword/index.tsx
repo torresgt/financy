@@ -1,10 +1,8 @@
 import { LogIn, Mail } from 'lucide-react'
 import type { FormEvent } from 'react'
 import { Link } from 'react-router'
-import { AuthLayout } from '@/components/auth-layout'
-import { Button } from '@/components/ui/button'
-import { Divider } from '@/components/ui/divider'
-import { Input } from '@/components/ui/input'
+import { AuthLayout } from '@/components'
+import { Button, Divider, Input } from '@/components/ui'
 
 export function RecoverPasswordPage() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {

@@ -1,12 +1,10 @@
 import { CircleArrowDown, CircleArrowUp, Wallet } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { AppLayout } from '@/components/app-layout'
+import { AppLayout } from '@/components'
 import { stagger } from '@/lib/motion'
-import { NewTransactionDialog } from '@/pages/Transaction/components/new-transaction-dialog'
-import { CategoriesOverview } from './components/categories-overview'
-import { RecentTransactions } from './components/recent-transactions'
-import { SummaryCard } from './components/summary-card'
+import { NewTransactionDialog } from '@/pages/Transaction/components'
+import { CategoriesOverview, RecentTransactions, SummaryCard } from './components'
 import {
   CATEGORIES_SUMMARY,
   CATEGORY_OPTIONS,

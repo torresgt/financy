@@ -29,7 +29,6 @@ export function TransactionTypeToggle({ value, onValueChange, className }: Trans
     <ToggleGroupPrimitive.Root
       type="single"
       value={value}
-      // Impede desmarcar: sempre deve haver um tipo selecionado.
       onValueChange={(next) => next && onValueChange?.(next as TransactionType)}
       aria-label="Tipo da transação"
       className={cn(
@@ -37,7 +36,6 @@ export function TransactionTypeToggle({ value, onValueChange, className }: Trans
         className,
       )}
     >
-      {/* Indicador que desliza até a opção selecionada (largura = 1 coluna; deslocamento = coluna + gap). */}
       {value && (
         <span
           aria-hidden

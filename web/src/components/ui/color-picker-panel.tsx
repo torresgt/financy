@@ -25,7 +25,6 @@ declare global {
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value))
 
-/** Converte a posição do ponteiro em coordenadas relativas (0–1) ao elemento. */
 function usePointerDrag(onMove: (x: number, y: number) => void) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -51,7 +50,6 @@ function usePointerDrag(onMove: (x: number, y: number) => void) {
 }
 
 export interface ColorPickerPanelProps {
-  /** Cor inicial em hexadecimal (#rrggbb). */
   initialColor?: string
   onApply: (hex: string) => void
   onCancel?: () => void
@@ -68,7 +66,6 @@ export function ColorPickerPanel({
   const hex = hsvToHex(hsv)
   const [hexDraft, setHexDraft] = useState(hex)
 
-  // Mantém o campo de texto sincronizado quando a cor muda pelos controles visuais.
   useEffect(() => {
     setHexDraft(hex)
   }, [hex])
@@ -118,13 +115,11 @@ export function ColorPickerPanel({
       const normalized = normalizeHex(result.sRGBHex)
       if (normalized) setHsv(hexToHsv(normalized))
     } catch {
-      // Usuário cancelou a captura (Esc) — nada a fazer.
     }
   }
 
   return (
     <div data-slot="color-picker-panel" className={cn('flex w-60 flex-col gap-3', className)}>
-      {/* Saturação × brilho */}
       <div
         {...svArea}
         role="slider"
@@ -153,7 +148,6 @@ export function ColorPickerPanel({
           </IconButton>
         )}
 
-        {/* Matiz */}
         <div
           {...hueSlider}
           role="slider"
@@ -176,7 +170,6 @@ export function ColorPickerPanel({
         </div>
       </div>
 
-      {/* Hex */}
       <div className="flex items-center gap-2">
         <span
           aria-hidden

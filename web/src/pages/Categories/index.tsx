@@ -21,7 +21,6 @@ interface CategoriesPageData {
   transactions: Pick<Category, 'id'>[]
 }
 
-/** Após qualquer alteração, atualiza todas as consultas ativas. */
 const REFETCH_ACTIVE = { refetchQueries: 'active' as const }
 
 const SKELETON_CARDS = ['skeleton-1', 'skeleton-2', 'skeleton-3', 'skeleton-4']

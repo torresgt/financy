@@ -46,6 +46,4 @@ export const transactionFilterSchema = z
     path: ['startDate'],
   })
 
-export type CreateTransactionInput = z.infer<typeof createTransactionSchema>
-export type UpdateTransactionInput = z.infer<typeof updateTransactionSchema>
 export type TransactionFilterInput = z.infer<typeof transactionFilterSchema>

@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils'
 export interface SummaryCardProps {
   icon: ReactNode
   label: string
-  /** Valor em reais. */
   value: number
   className?: string
   style?: CSSProperties

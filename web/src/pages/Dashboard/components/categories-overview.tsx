@@ -9,9 +9,7 @@ const SKELETON_ROWS = ['skeleton-1', 'skeleton-2', 'skeleton-3']
 
 export interface CategoriesOverviewProps {
   categories: CategorySummaryItem[]
-  /** Exibe linhas de carregamento no lugar da lista. */
   loading?: boolean
-  /** Posição do bloco na sequência de entrada da página. */
   enterIndex?: number
 }
 

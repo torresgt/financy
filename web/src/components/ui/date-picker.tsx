@@ -18,7 +18,15 @@ import { useId, useState } from 'react'
 import { IconButton } from '@/components/ui/icon-button'
 import { cn } from '@/lib/utils'
 
-const WEEKDAYS = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+const WEEKDAYS = [
+  { id: 'dom', label: 'D' },
+  { id: 'seg', label: 'S' },
+  { id: 'ter', label: 'T' },
+  { id: 'qua', label: 'Q' },
+  { id: 'qui', label: 'Q' },
+  { id: 'sex', label: 'S' },
+  { id: 'sab', label: 'S' },
+]
 
 export interface DatePickerProps {
   id?: string
@@ -50,7 +58,6 @@ export function DatePicker({
 
   const [open, setOpen] = useState(false)
   const [month, setMonth] = useState(() => startOfMonth(value ?? new Date()))
-  // Direção da última navegação, para os dias entrarem pelo lado certo.
   const [direction, setDirection] = useState<'prev' | 'next' | null>(null)
 
   function goToMonth(next: 'prev' | 'next') {
@@ -153,13 +160,12 @@ export function DatePicker({
                 direction === 'prev' && 'slide-in-from-left-6',
               )}
             >
-              {WEEKDAYS.map((weekday, index) => (
+              {WEEKDAYS.map((weekday) => (
                 <span
-                  // biome-ignore lint/suspicious/noArrayIndexKey: dias da semana fixos
-                  key={index}
+                  key={weekday.id}
                   className="py-1 text-xs leading-4 font-medium text-gray-500"
                 >
-                  {weekday}
+                  {weekday.label}
                 </span>
               ))}
 

@@ -1,15 +1,10 @@
 import type { ComponentProps, CSSProperties, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
-/** Largura média de um caractere em negrito, em `em` (Inter bold ≈ 0,6). */
 const AVG_CHAR_WIDTH_EM = 0.62
 const MAX_FONT_PX = 28
 const MIN_FONT_PX = 16
 
-/**
- * Fonte que faz `text` caber em uma linha na largura do container (`100cqi`),
- * limitada entre 16px e 28px. Abaixo do mínimo, o texto quebra (até 2 linhas).
- */
 function fitFontSize(text: string): CSSProperties {
   const chars = Math.max(text.length, 1)
   return {
@@ -21,13 +16,7 @@ function fitFontSize(text: string): CSSProperties {
 export interface SummaryStatCardProps extends ComponentProps<'div'> {
   icon: ReactNode
   label: string
-  /** Valor exibido (ex.: número animado). Ignorado quando `text` é informado. */
   value?: ReactNode
-  /**
-   * Valor em texto livre (ex.: nome de categoria). A fonte se ajusta à largura
-   * do card para não cortar; nomes muito longos quebram em até 2 linhas e o
-   * texto completo fica no tooltip. Mudanças no texto reanimam a entrada.
-   */
   text?: string
 }
 

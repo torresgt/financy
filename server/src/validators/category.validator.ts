@@ -22,6 +22,3 @@ export const updateCategorySchema = z
   .refine((data) => Object.values(data).some((value) => value !== undefined), {
     message: 'Informe ao menos um campo para atualizar',
   })
-
-export type CreateCategoryInput = z.infer<typeof createCategorySchema>
-export type UpdateCategoryInput = z.infer<typeof updateCategorySchema>

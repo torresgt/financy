@@ -75,7 +75,6 @@ const colorStyles: Record<CategoryColor, string> = {
 
 export interface CategoryIconBoxProps extends Omit<ComponentProps<'div'>, 'color'> {
   icon?: CategoryIconName | (string & {})
-  /** Cor da paleta ou hexadecimal personalizado (#rrggbb). */
   color?: CategoryColor | (string & {})
 }
 

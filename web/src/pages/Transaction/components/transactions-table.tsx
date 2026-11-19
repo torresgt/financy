@@ -20,11 +20,8 @@ export interface TransactionsTableProps {
   onPageChange: (page: number) => void
   onEdit: (id: string) => void
   onDelete: (id: string) => void
-  /** Exibe linhas de carregamento no lugar da lista. */
   loading?: boolean
-  /** Mensagem exibida quando não há transações. */
   emptyMessage?: string
-  /** Posição do bloco na sequência de entrada da página. */
   enterIndex?: number
 }
 
@@ -62,7 +59,6 @@ export function TransactionsTable({
             </tr>
           </thead>
 
-          {/* A chave pela página reanima as linhas ao trocar de página. */}
           <tbody key={currentPage} aria-busy={loading || undefined}>
             {loading &&
               SKELETON_ROWS.map((row) => (

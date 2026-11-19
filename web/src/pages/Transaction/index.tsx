@@ -25,7 +25,6 @@ import {
 import type { TransactionFilters } from './types'
 import { getInitialFilters, getPeriodOptions, toApiFilter, toRowItem } from './utils'
 
-/** Após qualquer alteração, atualiza todas as consultas ativas (lista, filtros, etc.). */
 const REFETCH_ACTIVE = { refetchQueries: 'active' as const }
 
 export function TransactionsPage() {
@@ -37,7 +36,6 @@ export function TransactionsPage() {
   })
   const [toDelete, setToDelete] = useState<Transaction | null>(null)
 
-  // A busca espera o usuário parar de digitar; os demais filtros aplicam na hora.
   const debouncedSearch = useDebouncedValue(filters.search)
   const apiFilter = useMemo(
     () => toApiFilter({ ...filters, search: debouncedSearch }),
@@ -66,7 +64,6 @@ export function TransactionsPage() {
     REFETCH_ACTIVE,
   )
 
-  // Mantém a lista anterior na tela enquanto os novos filtros carregam.
   const transactions =
     (transactionsQuery.data ?? transactionsQuery.previousData)?.transactions ?? []
   const categories = categoriesQuery.data?.categories ?? []

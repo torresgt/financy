@@ -27,7 +27,6 @@ export function DashboardPage() {
     { createTransaction: Transaction },
     { data: CreateTransactionInput }
   >(CREATE_TRANSACTION, {
-    // Saldo, totais do mês, recentes e categorias mudam com a nova transação.
     refetchQueries: [GET_DASHBOARD],
   })
 

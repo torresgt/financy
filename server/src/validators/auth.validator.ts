@@ -44,9 +44,3 @@ export const confirmPasswordResetSchema = z.object({
     .trim()
     .regex(/^\d{6}$/, 'Informe o código de 6 dígitos'),
 })
-
-export type RegisterInput = z.infer<typeof registerSchema>
-export type LoginInput = z.infer<typeof loginSchema>
-export type UpdateProfileInput = z.infer<typeof updateProfileSchema>
-export type RequestPasswordResetInput = z.infer<typeof requestPasswordResetSchema>
-export type ConfirmPasswordResetInput = z.infer<typeof confirmPasswordResetSchema>

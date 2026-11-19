@@ -13,8 +13,10 @@ const envSchema = z.object({
 
   /** Validade, em minutos, do código de redefinição de senha enviado por e-mail. */
   PASSWORD_RESET_CODE_TTL_MINUTES: z.coerce.number().int().positive().default(15),
+  /** Intervalo mínimo, em segundos, entre dois envios de código para o mesmo usuário. */
+  PASSWORD_RESET_RESEND_COOLDOWN_SECONDS: z.coerce.number().int().nonnegative().default(60),
 
-  // SMTP (opcional em desenvolvimento: sem SMTP_HOST o link é exibido no console)
+  // SMTP (opcional em desenvolvimento: sem SMTP_HOST o e-mail é exibido no console)
   SMTP_HOST: z.string().optional(),
   SMTP_PORT: z.coerce.number().int().positive().default(587),
   SMTP_SECURE: z

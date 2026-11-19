@@ -1,5 +1,5 @@
 import { ArrowUpDown, Tag as TagIcon } from 'lucide-react'
-import { AnimatedNumber, CATEGORY_ICONS } from '@/components'
+import { AnimatedNumber, CATEGORY_ICONS, type CategoryIconName } from '@/components'
 import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import type { CategoryItem } from '../types'
 import { getMostUsedCategory } from '../utils/get-most-used-category'
@@ -18,7 +18,7 @@ export function CategoriesSummary({
   enterIndex = 0,
 }: CategoriesSummaryProps) {
   const mostUsed = getMostUsedCategory(categories)
-  const MostUsedIcon = mostUsed ? CATEGORY_ICONS[mostUsed.icon] : TagIcon
+  const MostUsedIcon = (mostUsed && CATEGORY_ICONS[mostUsed.icon as CategoryIconName]) || TagIcon
 
   return (
     <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -40,12 +40,7 @@ export function CategoriesSummary({
         className={ENTER_ANIMATION}
         style={stagger(enterIndex + 2)}
         icon={<MostUsedIcon className="text-blue-base" />}
-        value={
-          // A troca de categoria mais usada reanima o texto.
-          <span key={mostUsed?.id} className="inline-block animate-fade-up">
-            {mostUsed?.title ?? '—'}
-          </span>
-        }
+        text={mostUsed?.title ?? '—'}
         label="Categoria mais utilizada"
       />
     </section>

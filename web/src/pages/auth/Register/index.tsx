@@ -43,7 +43,6 @@ export function RegisterPage() {
       }
 
       const message = getErrorMessage(error)
-      // E-mail já cadastrado (CONFLICT): destaca o campo em vez de só o toast
       if (message.toLowerCase().includes('e-mail') && !fieldErrors.email) {
         setError('email', { message })
       }

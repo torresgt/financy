@@ -6,20 +6,14 @@ const amountFormatter = new Intl.NumberFormat('pt-BR', {
   maximumFractionDigits: 2,
 })
 
-/** Maior valor aceito (R$ 999.999.999,99) para evitar perda de precisão. */
 const MAX_CENTS = 99_999_999_999
 
 export interface CurrencyInputProps
   extends Omit<InputProps, 'value' | 'onChange' | 'type' | 'defaultValue'> {
-  /** Valor em reais. `undefined`/0 exibe o placeholder. */
   value?: number
   onValueChange?: (value: number) => void
 }
 
-/**
- * Campo monetário em BRL: o usuário digita apenas números e o valor
- * é preenchido da direita para a esquerda (centavos primeiro).
- */
 export const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
   function CurrencyInput(
     { value, onValueChange, placeholder = '0,00', leftAddon = 'R$', ...props },

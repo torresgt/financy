@@ -11,9 +11,7 @@ const SKELETON_ROWS = ['skeleton-1', 'skeleton-2', 'skeleton-3']
 export interface RecentTransactionsProps {
   transactions: RecentTransactionItem[]
   onNewTransaction: () => void
-  /** Exibe linhas de carregamento no lugar da lista. */
   loading?: boolean
-  /** Posição do bloco na sequência de entrada da página. */
   enterIndex?: number
   className?: string
 }

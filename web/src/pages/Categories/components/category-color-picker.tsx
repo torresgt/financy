@@ -15,7 +15,6 @@ const tileClasses = cn(
 )
 
 export interface CategoryColorPickerProps {
-  /** Nome de uma cor da paleta (ex.: "green") ou hexadecimal personalizado (#rrggbb). */
   value?: string
   onValueChange?: (color: string) => void
   className?: string
@@ -40,7 +39,6 @@ export function CategoryColorPicker({
     <RadioGroupPrimitive.Root
       value={customColor ? CUSTOM_VALUE : value}
       onValueChange={(next) => {
-        // A opção personalizada só é aplicada pelo botão "Aplicar" do painel.
         if (next !== CUSTOM_VALUE) onValueChange?.(next)
       }}
       className={cn('grid grid-cols-8 gap-2', className)}
@@ -57,7 +55,6 @@ export function CategoryColorPicker({
         </RadioGroupPrimitive.Item>
       ))}
 
-      {/* Cor personalizada: abre o painel do seletor de cores */}
       <PopoverPrimitive.Root open={panelOpen} onOpenChange={setPanelOpen}>
         <PopoverPrimitive.Trigger asChild>
           <RadioGroupPrimitive.Item

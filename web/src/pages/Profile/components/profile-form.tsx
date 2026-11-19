@@ -17,7 +17,6 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>
 export interface ProfileFormProps {
   name: string
   email: string
-  /** Salva o novo nome. Se rejeitar, o formulário mantém o valor digitado. */
   onSave: (name: string) => Promise<void>
   onSignOut: () => void
 }
@@ -38,7 +37,6 @@ export function ProfileForm({ name, email, onSave, onSignOut }: ProfileFormProps
       await onSave(values.name)
       reset({ name: values.name })
     } catch {
-      // O erro já foi exibido por quem chamou.
     }
   }
 

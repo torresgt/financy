@@ -4,7 +4,6 @@ import { ENTER_ANIMATION } from '@/lib/motion'
 export interface PageHeaderProps {
   title: string
   description?: string
-  /** Ação principal da página (ex.: botão "Nova transação"). */
   action?: ReactNode
 }
 

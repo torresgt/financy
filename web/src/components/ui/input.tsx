@@ -8,7 +8,6 @@ export interface InputProps extends ComponentProps<'input'> {
   error?: string
   leftIcon?: ReactNode
   rightIcon?: ReactNode
-  /** Texto fixo exibido antes do valor (ex.: "R$"). */
   leftAddon?: ReactNode
 }
 

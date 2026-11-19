@@ -8,11 +8,8 @@ import type { TransactionFilters } from '../types'
 export interface TransactionsFiltersProps {
   value: TransactionFilters
   onChange: (filters: TransactionFilters) => void
-  /** Opções de categoria (incluindo "Todas"). */
   categoryOptions: SelectOption[]
-  /** Opções de período (incluindo "Todo o período"). */
   periodOptions: SelectOption[]
-  /** Posição do bloco na sequência de entrada da página. */
   enterIndex?: number
 }
 

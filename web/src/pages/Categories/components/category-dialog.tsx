@@ -11,9 +11,7 @@ import type { Category, CreateCategoryInput } from '@/types/api'
 export interface CategoryDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  /** Categoria a editar; sem ela, o modal cria uma nova. */
   category?: Category | null
-  /** Se rejeitar, o modal continua aberto (quem chama exibe o erro). */
   onSubmit: (data: CreateCategoryInput) => void | Promise<void>
 }
 
@@ -28,7 +26,6 @@ export function CategoryDialog({ open, onOpenChange, category, onSubmit }: Categ
           isEditing ? 'Atualize os dados da categoria' : 'Organize suas transações com categorias'
         }
       >
-        {/* O formulário é desmontado ao fechar, então sempre abre com os valores certos. */}
         <CategoryForm
           category={category}
           onSubmit={async (data) => {
@@ -36,7 +33,6 @@ export function CategoryDialog({ open, onOpenChange, category, onSubmit }: Categ
               await onSubmit(data)
               onOpenChange(false)
             } catch {
-              // Mantém o modal aberto; o erro já foi exibido por quem chamou.
             }
           }}
         />

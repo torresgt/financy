@@ -19,7 +19,6 @@ export interface TransactionDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   categories: SelectOption[]
-  /** Transação a editar; sem ela, o modal cria uma nova. */
   transaction?: Transaction | null
   onSubmit: (data: CreateTransactionInput) => void | Promise<void>
 }
@@ -41,7 +40,6 @@ export function TransactionDialog({
           isEditing ? 'Atualize os dados da transação' : 'Registre sua despesa ou receita'
         }
       >
-        {/* O formulário é desmontado ao fechar, então sempre abre com os valores certos. */}
         <TransactionForm
           categories={categories}
           transaction={transaction}
@@ -50,7 +48,6 @@ export function TransactionDialog({
               await onSubmit(data)
               onOpenChange(false)
             } catch {
-              // Mantém o modal aberto; o erro já foi exibido por quem chamou.
             }
           }}
         />

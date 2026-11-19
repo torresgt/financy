@@ -8,10 +8,6 @@ export interface ConfirmDialogProps {
   title: string
   description?: string
   confirmLabel?: string
-  /**
-   * Ação confirmada. Se rejeitar, o diálogo continua aberto (quem chama
-   * exibe o erro); se resolver, o diálogo fecha.
-   */
   onConfirm: () => void | Promise<void>
 }
 
@@ -31,7 +27,6 @@ export function ConfirmDialog({
       await onConfirm()
       onOpenChange(false)
     } catch {
-      // Mantém aberto; o erro já foi exibido por quem chamou.
     } finally {
       setIsPending(false)
     }

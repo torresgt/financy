@@ -8,7 +8,6 @@ import { SummaryStatCard } from './summary-stat-card'
 export interface CategoriesSummaryProps {
   categories: CategoryItem[]
   totalTransactions: number
-  /** Posição do primeiro card na sequência de entrada da página. */
   enterIndex?: number
 }
 

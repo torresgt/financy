@@ -19,11 +19,6 @@ import { CONFIRM_PASSWORD_RESET, REQUEST_PASSWORD_RESET } from './queries'
 
 const FIELDS = ['email', 'newPassword', 'confirmPassword'] as const
 
-/**
- * Recuperação de senha em duas etapas na mesma tela:
- * 1. e-mail + nova senha → a resposta é sempre a mesma, exista ou não a conta;
- * 2. código de 6 dígitos recebido por e-mail → confirma e aplica a nova senha.
- */
 export function RecoverPasswordPage() {
   const [sentTo, setSentTo] = useState<string | null>(null)
 

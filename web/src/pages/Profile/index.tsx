@@ -18,7 +18,6 @@ export function ProfilePage() {
   const setUser = useAuthStore((state) => state.setUser)
   const signOut = useAuthStore((state) => state.signOut)
 
-  // Busca o usuário atualizado na API; até lá, usa o que está salvo na sessão.
   const { data } = useQuery<{ me: User }>(ME)
   const [updateProfile] = useMutation<{ updateProfile: User }, { data: { name: string } }>(
     UPDATE_PROFILE,

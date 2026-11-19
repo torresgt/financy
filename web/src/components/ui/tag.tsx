@@ -37,7 +37,6 @@ const tagVariants = cva(
 export interface TagProps
   extends Omit<ComponentProps<'span'>, 'color'>,
     Omit<VariantProps<typeof tagVariants>, 'color'> {
-  /** Cor da paleta ou hexadecimal personalizado (#rrggbb). */
   color?: CategoryColor | (string & {}) | null
 }
 

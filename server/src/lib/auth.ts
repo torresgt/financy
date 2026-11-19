@@ -5,10 +5,6 @@ import { env } from '../env.js'
 
 const SALT_ROUNDS = 10
 
-export interface TokenPayload {
-  sub: string
-}
-
 export function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, SALT_ROUNDS)
 }

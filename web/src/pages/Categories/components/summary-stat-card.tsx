@@ -58,7 +58,7 @@ export function SummaryStatCard({
             key={text}
             title={text}
             style={fitFontSize(text)}
-            className="line-clamp-2 animate-fade-up font-bold break-words text-gray-800"
+            className="line-clamp-2 animate-fade-up font-bold wrap-break-words text-gray-800"
           >
             {text}
           </p>

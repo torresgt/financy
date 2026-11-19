@@ -13,6 +13,7 @@ import {
   loginSchema,
   registerSchema,
   requestPasswordResetSchema,
+  updateProfileSchema,
 } from '../validators/auth.validator.js'
 import { validate } from '../validators/validate.js'
 
@@ -144,6 +145,17 @@ export class AuthService {
       throw new UnauthenticatedError('Usuário não encontrado')
     }
     return user
+  }
+
+  /** Atualiza os dados do perfil do usuário autenticado (o e-mail não pode ser alterado). */
+  async updateProfile(userId: string, input: unknown): Promise<User> {
+    const data = validate(updateProfileSchema, input)
+    await this.me(userId)
+
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { name: data.name },
+    })
   }
 
   private async issuePasswordReset(email: string, newPassword: string): Promise<void> {

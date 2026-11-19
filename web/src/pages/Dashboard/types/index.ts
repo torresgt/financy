@@ -1,14 +1,17 @@
 import type { CategoryIconName } from '@/components/category-icon'
 import type { CategoryColor } from '@/components/ui/tag'
-import type { TransactionType } from '@/types/api'
+import type { Category, Summary, Transaction, TransactionType } from '@/types/api'
+
+/** Cor da paleta ou hexadecimal personalizado, como vem da API. */
+type ColorValue = CategoryColor | (string & {})
 
 export interface RecentTransactionItem {
   id: string
   description: string
   date: string
   category: string
-  color: CategoryColor
-  icon: CategoryIconName
+  color: ColorValue
+  icon: CategoryIconName | (string & {})
   amount: number
   type: TransactionType
 }
@@ -16,7 +19,14 @@ export interface RecentTransactionItem {
 export interface CategorySummaryItem {
   id: string
   title: string
-  color: CategoryColor
+  color: ColorValue
   itemsCount: number
   totalAmount: number
+}
+
+export interface DashboardQueryData {
+  balance: Pick<Summary, 'balance'>
+  month: Pick<Summary, 'totalIncome' | 'totalExpense'>
+  transactions: Transaction[]
+  categories: Category[]
 }

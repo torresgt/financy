@@ -6,9 +6,13 @@ import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import { cn } from '@/lib/utils'
 import type { RecentTransactionItem } from '../types'
 
+const SKELETON_ROWS = ['skeleton-1', 'skeleton-2', 'skeleton-3']
+
 export interface RecentTransactionsProps {
   transactions: RecentTransactionItem[]
   onNewTransaction: () => void
+  /** Exibe linhas de carregamento no lugar da lista. */
+  loading?: boolean
   /** Posição do bloco na sequência de entrada da página. */
   enterIndex?: number
   className?: string
@@ -17,6 +21,7 @@ export interface RecentTransactionsProps {
 export function RecentTransactions({
   transactions,
   onNewTransaction,
+  loading = false,
   enterIndex = 0,
   className,
 }: RecentTransactionsProps) {
@@ -39,8 +44,30 @@ export function RecentTransactions({
         </TextLink>
       </header>
 
-      <div className="flex flex-col">
-        {transactions.map((transaction, index) => {
+      <div className="flex flex-col" aria-busy={loading || undefined}>
+        {loading &&
+          SKELETON_ROWS.map((row) => (
+            <div
+              key={row}
+              className="flex h-20 items-center gap-4 border-b border-gray-200 px-6"
+              aria-hidden
+            >
+              <div className="size-10 shrink-0 animate-pulse rounded-lg bg-gray-200" />
+              <div className="flex flex-1 flex-col gap-2">
+                <div className="h-4 w-1/2 animate-pulse rounded bg-gray-200" />
+                <div className="h-3 w-16 animate-pulse rounded bg-gray-200" />
+              </div>
+              <div className="h-4 w-20 animate-pulse rounded bg-gray-200" />
+            </div>
+          ))}
+
+        {!loading && transactions.length === 0 && (
+          <p className="border-b border-gray-200 px-6 py-10 text-center text-sm leading-5 font-normal text-gray-500">
+            Nenhuma transação registrada ainda.
+          </p>
+        )}
+
+        {!loading && transactions.map((transaction, index) => {
           const isIncome = transaction.type === 'INCOME'
 
           return (

@@ -15,7 +15,7 @@ API GraphQL para organizar finanças pessoais: cadastro e login de usuários, al
 ## Como rodar
 
 ```bash
-cp .env.example .env        # preencha o JWT_SECRET
+cp .env.example .env        # cria o .env (em produção, troque o JWT_SECRET)
 npm install                 # instala dependências e gera o Prisma Client
 npm run db:migrate          # cria o banco SQLite e aplica as migrations
 npm run dev                 # http://localhost:4000/graphql

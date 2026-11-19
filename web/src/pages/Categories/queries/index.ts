@@ -28,15 +28,6 @@ export const GET_CATEGORIES_PAGE = gql`
   }
 `
 
-export const GET_CATEGORY = gql`
-  ${CATEGORY_FIELDS}
-  query GetCategory($id: ID!) {
-    category(id: $id) {
-      ...CategoryFields
-    }
-  }
-`
-
 /* Mutations */
 
 export const CREATE_CATEGORY = gql`

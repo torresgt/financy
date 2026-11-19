@@ -1,0 +1,15 @@
+node_modules
+dist
+
+# Variáveis de ambiente
+.env
+
+# Banco SQLite local
+*.db
+*.db-journal
+
+# Prisma Client gerado
+src/generated
+
+# Logs
+*.log

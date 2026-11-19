@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { AppLayout, PageHeader } from '@/components'
 import { Button } from '@/components/ui'
-import { NewTransactionDialog, TransactionsFilters, TransactionsTable } from './components'
+import { TransactionDialog, TransactionsFilters, TransactionsTable } from './components'
 import {
   CATEGORY_FORM_OPTIONS,
   INITIAL_FILTERS,
@@ -43,7 +43,7 @@ export function TransactionsPage() {
         />
       </div>
 
-      <NewTransactionDialog
+      <TransactionDialog
         open={isNewTransactionOpen}
         onOpenChange={setIsNewTransactionOpen}
         categories={CATEGORY_FORM_OPTIONS}

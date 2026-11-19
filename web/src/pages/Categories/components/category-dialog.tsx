@@ -6,24 +6,38 @@ import { categoryFormSchema, type CategoryFormValues } from '../schemas/category
 import { DEFAULT_CATEGORY_COLOR, DEFAULT_CATEGORY_ICON } from '../constants'
 import { CategoryIconPicker } from './category-icon-picker'
 import { CategoryColorPicker } from './category-color-picker'
-import type { CreateCategoryInput } from '@/types/api'
+import type { Category, CreateCategoryInput } from '@/types/api'
 
-
-export interface NewCategoryDialogProps {
+export interface CategoryDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  /** Categoria a editar; sem ela, o modal cria uma nova. */
+  category?: Category | null
+  /** Se rejeitar, o modal continua aberto (quem chama exibe o erro). */
   onSubmit: (data: CreateCategoryInput) => void | Promise<void>
 }
 
-export function NewCategoryDialog({ open, onOpenChange, onSubmit }: NewCategoryDialogProps) {
+export function CategoryDialog({ open, onOpenChange, category, onSubmit }: CategoryDialogProps) {
+  const isEditing = !!category
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent title="Nova categoria" description="Organize suas transações com categorias">
-        {/* O formulário é desmontado ao fechar, então sempre abre limpo. */}
+      <DialogContent
+        title={isEditing ? 'Editar categoria' : 'Nova categoria'}
+        description={
+          isEditing ? 'Atualize os dados da categoria' : 'Organize suas transações com categorias'
+        }
+      >
+        {/* O formulário é desmontado ao fechar, então sempre abre com os valores certos. */}
         <CategoryForm
+          category={category}
           onSubmit={async (data) => {
-            await onSubmit(data)
-            onOpenChange(false)
+            try {
+              await onSubmit(data)
+              onOpenChange(false)
+            } catch {
+              // Mantém o modal aberto; o erro já foi exibido por quem chamou.
+            }
           }}
         />
       </DialogContent>
@@ -32,10 +46,11 @@ export function NewCategoryDialog({ open, onOpenChange, onSubmit }: NewCategoryD
 }
 
 interface CategoryFormProps {
+  category?: Category | null
   onSubmit: (data: CreateCategoryInput) => Promise<void>
 }
 
-function CategoryForm({ onSubmit }: CategoryFormProps) {
+function CategoryForm({ category, onSubmit }: CategoryFormProps) {
   const iconLabelId = useId()
   const colorLabelId = useId()
 
@@ -47,10 +62,10 @@ function CategoryForm({ onSubmit }: CategoryFormProps) {
   } = useForm<CategoryFormValues>({
     resolver: zodResolver(categoryFormSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      icon: DEFAULT_CATEGORY_ICON,
-      color: DEFAULT_CATEGORY_COLOR,
+      title: category?.title ?? '',
+      description: category?.description ?? '',
+      icon: category?.icon ?? DEFAULT_CATEGORY_ICON,
+      color: category?.color ?? DEFAULT_CATEGORY_COLOR,
     },
   })
 

@@ -5,7 +5,7 @@ import { AppLayout, type CategoryIconName, PageHeader } from '@/components'
 import { Button } from '@/components/ui'
 import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import type { CreateCategoryInput } from '@/types/api'
-import { CategoriesSummary, CategoryCard, NewCategoryDialog } from './components'
+import { CategoriesSummary, CategoryCard, CategoryDialog } from './components'
 import { CATEGORIES_DATA, TOTAL_TRANSACTIONS } from './constants'
 
 export function CategoriesPage() {
@@ -64,7 +64,7 @@ export function CategoriesPage() {
         </section>
       </div>
 
-      <NewCategoryDialog
+      <CategoryDialog
         open={isNewCategoryOpen}
         onOpenChange={setIsNewCategoryOpen}
         onSubmit={handleCreateCategory}

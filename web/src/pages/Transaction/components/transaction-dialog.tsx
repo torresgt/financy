@@ -10,33 +10,48 @@ import {
   type SelectOption,
   SelectField,
 } from '@/components/ui'
-import { toApiDate } from '@/lib/format'
-import type { CreateTransactionInput } from '@/types/api'
+import { parseApiDate, toApiDate } from '@/lib/format'
+import type { CreateTransactionInput, Transaction } from '@/types/api'
 import { type TransactionFormValues, transactionFormSchema } from '../schemas/transaction-form'
 import { TransactionTypeToggle } from './transaction-type-toggle'
 
-export interface NewTransactionDialogProps {
+export interface TransactionDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   categories: SelectOption[]
+  /** Transação a editar; sem ela, o modal cria uma nova. */
+  transaction?: Transaction | null
   onSubmit: (data: CreateTransactionInput) => void | Promise<void>
 }
 
-export function NewTransactionDialog({
+export function TransactionDialog({
   open,
   onOpenChange,
   categories,
+  transaction,
   onSubmit,
-}: NewTransactionDialogProps) {
+}: TransactionDialogProps) {
+  const isEditing = !!transaction
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent title="Nova transação" description="Registre sua despesa ou receita">
-        {/* O formulário é desmontado ao fechar, então sempre abre limpo. */}
+      <DialogContent
+        title={isEditing ? 'Editar transação' : 'Nova transação'}
+        description={
+          isEditing ? 'Atualize os dados da transação' : 'Registre sua despesa ou receita'
+        }
+      >
+        {/* O formulário é desmontado ao fechar, então sempre abre com os valores certos. */}
         <TransactionForm
           categories={categories}
+          transaction={transaction}
           onSubmit={async (data) => {
-            await onSubmit(data)
-            onOpenChange(false)
+            try {
+              await onSubmit(data)
+              onOpenChange(false)
+            } catch {
+              // Mantém o modal aberto; o erro já foi exibido por quem chamou.
+            }
           }}
         />
       </DialogContent>
@@ -46,10 +61,11 @@ export function NewTransactionDialog({
 
 interface TransactionFormProps {
   categories: SelectOption[]
+  transaction?: Transaction | null
   onSubmit: (data: CreateTransactionInput) => Promise<void>
 }
 
-function TransactionForm({ categories, onSubmit }: TransactionFormProps) {
+function TransactionForm({ categories, transaction, onSubmit }: TransactionFormProps) {
   const {
     control,
     register,
@@ -57,7 +73,15 @@ function TransactionForm({ categories, onSubmit }: TransactionFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<TransactionFormValues>({
     resolver: zodResolver(transactionFormSchema),
-    defaultValues: { type: 'EXPENSE', description: '' },
+    defaultValues: transaction
+      ? {
+          type: transaction.type,
+          description: transaction.description,
+          date: parseApiDate(transaction.date),
+          amount: transaction.amount,
+          categoryId: transaction.category?.id ?? '',
+        }
+      : { type: 'EXPENSE', description: '', categoryId: '' },
   })
 
   async function submit(values: TransactionFormValues) {

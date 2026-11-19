@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { AppLayout } from '@/components'
 import { stagger } from '@/lib/motion'
-import { NewTransactionDialog } from '@/pages/Transaction/components'
+import { TransactionDialog } from '@/pages/Transaction/components'
 import { CategoriesOverview, RecentTransactions, SummaryCard } from './components'
 import {
   CATEGORIES_SUMMARY,
@@ -47,7 +47,7 @@ export function DashboardPage() {
         <CategoriesOverview enterIndex={4} categories={CATEGORIES_SUMMARY} />
       </div>
 
-      <NewTransactionDialog
+      <TransactionDialog
         open={isNewTransactionOpen}
         onOpenChange={setIsNewTransactionOpen}
         categories={CATEGORY_OPTIONS}

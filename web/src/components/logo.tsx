@@ -1,0 +1,18 @@
+import type { ComponentProps } from 'react'
+import logoSvg from '@/assets/logo.svg'
+import { cn } from '@/lib/utils'
+
+export type LogoProps = Omit<ComponentProps<'img'>, 'src'>
+
+export function Logo({ className, alt = 'Financy', ...props }: LogoProps) {
+  return (
+    <img
+      src={logoSvg}
+      alt={alt}
+      width={134}
+      height={32}
+      className={cn('h-8 w-33.5 shrink-0 select-none', className)}
+      {...props}
+    />
+  )
+}

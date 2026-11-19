@@ -47,6 +47,15 @@ export const resolvers = {
     login: (_: unknown, { data }: DataArgs, ctx: GraphQLContext) =>
       ctx.services.auth.login(data),
 
+    updateProfile: (_: unknown, { data }: DataArgs, ctx: GraphQLContext) =>
+      ctx.services.auth.updateProfile(requireAuth(ctx), data),
+
+    requestPasswordReset: (_: unknown, { data }: DataArgs, ctx: GraphQLContext) =>
+      ctx.services.auth.requestPasswordReset(data),
+
+    confirmPasswordReset: (_: unknown, { data }: DataArgs, ctx: GraphQLContext) =>
+      ctx.services.auth.confirmPasswordReset(data),
+
     createCategory: (_: unknown, { data }: DataArgs, ctx: GraphQLContext) =>
       ctx.services.category.create(requireAuth(ctx), data),
 

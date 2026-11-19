@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import { randomInt } from 'node:crypto'
 import jwt, { type SignOptions } from 'jsonwebtoken'
 import { env } from '../env.js'
 
@@ -21,6 +22,11 @@ export function signToken(userId: string): string {
     subject: userId,
     expiresIn: env.JWT_EXPIRES_IN as SignOptions['expiresIn'],
   })
+}
+
+/** Código numérico de 6 dígitos (criptograficamente aleatório) para redefinir a senha. */
+export function generatePasswordResetCode(): string {
+  return randomInt(0, 1_000_000).toString().padStart(6, '0')
 }
 
 /** Retorna o id do usuário se o token for válido, ou `null` caso contrário. */

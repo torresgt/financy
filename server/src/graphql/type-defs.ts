@@ -67,6 +67,22 @@ export const typeDefs = gql`
     password: String!
   }
 
+  input UpdateProfileInput {
+    name: String!
+  }
+
+  input RequestPasswordResetInput {
+    email: String!
+    newPassword: String!
+    confirmPassword: String!
+  }
+
+  input ConfirmPasswordResetInput {
+    email: String!
+    "Código de 6 dígitos recebido por e-mail"
+    code: String!
+  }
+
   input CreateCategoryInput {
     title: String!
     description: String
@@ -124,6 +140,16 @@ export const typeDefs = gql`
   type Mutation {
     register(data: RegisterInput!): AuthPayload!
     login(data: LoginInput!): AuthPayload!
+    "Atualiza o perfil do usuário autenticado"
+    updateProfile(data: UpdateProfileInput!): User!
+    """
+    Registra a nova senha como pendente e envia um código de 6 dígitos, se houver
+    conta com o e-mail. Sempre retorna true, para não revelar quais e-mails estão
+    cadastrados.
+    """
+    requestPasswordReset(data: RequestPasswordResetInput!): Boolean!
+    "Confirma o pedido com o código recebido por e-mail e aplica a nova senha"
+    confirmPasswordReset(data: ConfirmPasswordResetInput!): Boolean!
 
     createCategory(data: CreateCategoryInput!): Category!
     updateCategory(id: ID!, data: UpdateCategoryInput!): Category!

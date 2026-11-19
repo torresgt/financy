@@ -9,3 +9,12 @@ export const ME = gql`
     }
   }
 `
+
+export const UPDATE_PROFILE = gql`
+  ${USER_FIELDS}
+  mutation UpdateProfile($data: UpdateProfileInput!) {
+    updateProfile(data: $data) {
+      ...UserFields
+    }
+  }
+`

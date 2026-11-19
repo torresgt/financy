@@ -7,6 +7,7 @@ import {
   hashPassword,
   signToken,
 } from '../lib/auth.js'
+import { passwordResetCodeEmail } from '../emails/password-reset-code.js'
 import { sendMail } from '../lib/mailer.js'
 import {
   confirmPasswordResetSchema,
@@ -162,6 +163,15 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({ where: { email } })
     if (!user) return
 
+    // Evita "bombardear" a caixa do usuário (e a reputação do remetente) com
+    // pedidos seguidos: dentro do intervalo, o código já enviado continua valendo.
+    const cooldownMs = env.PASSWORD_RESET_RESEND_COOLDOWN_SECONDS * 1_000
+    const recentRequest = await this.prisma.passwordResetToken.findFirst({
+      where: { userId: user.id, usedAt: null, createdAt: { gt: new Date(Date.now() - cooldownMs) } },
+      select: { id: true },
+    })
+    if (recentRequest) return
+
     const code = generatePasswordResetCode()
     const [codeHash, newPasswordHash] = await Promise.all([
       hashPassword(code),
@@ -184,38 +194,7 @@ export class AuthService {
 
     await sendMail({
       to: user.email,
-      subject: `Financy - Código de redefinição de senha: ${code}`,
-      text: [
-        `Olá, ${user.name}!`,
-        '',
-        'Recebemos uma solicitação para redefinir a senha da sua conta no Financy.',
-        `Seu código de confirmação é: ${code}`,
-        '',
-        `Digite-o na tela de recuperação de senha. Ele é válido por ${ttlMinutes} minutos.`,
-        '',
-        'Se você NÃO fez essa solicitação, ignore este e-mail e não compartilhe o código.',
-        'Sua senha atual continua valendo.',
-      ].join('\n'),
-      html: `
-        <p>Olá, ${escapeHtml(user.name)}!</p>
-        <p>Recebemos uma solicitação para redefinir a senha da sua conta no Financy.</p>
-        <p>Seu código de confirmação é:</p>
-        <p style="font-size:28px;font-weight:bold;letter-spacing:6px">${code}</p>
-        <p>Digite-o na tela de recuperação de senha. Ele é válido por ${ttlMinutes} minutos.</p>
-        <p>
-          Se você <strong>não</strong> fez essa solicitação, ignore este e-mail e não
-          compartilhe o código. Sua senha atual continua valendo.
-        </p>
-      `,
+      ...passwordResetCodeEmail({ name: user.name, code, ttlMinutes }),
     })
   }
-}
-
-function escapeHtml(value: string): string {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;')
 }

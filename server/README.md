@@ -34,6 +34,8 @@ Para produção: `npm run build && npm run db:deploy && npm start`.
 | `db:deploy` | Aplica migrations (produção) |
 | `db:generate` | Gera o Prisma Client |
 | `db:studio` | Abre o Prisma Studio |
+| `mail:setup` | Assistente que configura o SMTP no `.env`, testa a conexão e envia um e-mail de teste |
+| `mail:test -- <email>` | Envia o e-mail do código de recuperação (com código fictício) usando a configuração atual |
 
 ## Variáveis de ambiente
 
@@ -45,6 +47,31 @@ Para produção: `npm run build && npm run db:deploy && npm start`.
 | `PORT` | | `4000` | Porta HTTP |
 | `NODE_ENV` | | `development` | `development` \| `production` \| `test` |
 | `CORS_ORIGIN` | | `*` | Origens permitidas, separadas por vírgula |
+| `PASSWORD_RESET_CODE_TTL_MINUTES` | | `15` | Validade do código de redefinição de senha |
+| `PASSWORD_RESET_RESEND_COOLDOWN_SECONDS` | | `60` | Intervalo mínimo entre dois envios de código para o mesmo usuário |
+| `SMTP_HOST` | em produção | — | Servidor SMTP. Sem ele, em desenvolvimento, o e-mail vai para o console |
+| `SMTP_PORT` / `SMTP_SECURE` | | `587` / `false` | Porta e TLS direto (`true` na porta 465) |
+| `SMTP_USER` / `SMTP_PASS` | | — | Credenciais SMTP (senha de app ou chave de API) |
+| `MAIL_FROM` | | `Financy <no-reply@financy.local>` | Remetente |
+
+## Envio de e-mails
+
+O código de recuperação de senha é enviado por SMTP para o e-mail do usuário, a partir de uma conta remetente configurada uma única vez. Funciona com qualquer provedor (Gmail, Outlook, Brevo, Resend, Amazon SES etc.).
+
+**Configuração rápida:**
+
+```bash
+npm run mail:setup   # escolha o provedor e informe as credenciais (a senha não aparece na tela)
+npm run dev          # reinicie: o log deve mostrar "✉️ SMTP pronto"
+```
+
+O assistente testa a conexão **antes** de salvar (se falhar, o `.env` não é alterado), grava as variáveis `SMTP_*`/`MAIL_FROM` e envia um e-mail de teste. Para conferir depois: `npm run mail:test -- voce@exemplo.com`. Também é possível preencher o `.env` à mão (exemplos no [`.env.example`](.env.example)).
+
+- Ao subir, o servidor testa a conexão e o login SMTP e mostra no log `✉️ SMTP pronto` ou o motivo da falha (ex.: senha recusada).
+- Falhas temporárias (rede, servidor ocupado) têm até 3 tentativas; cada conexão tem tempo-limite.
+- Para não enviar e-mails em sequência, um novo código só é gerado depois de `PASSWORD_RESET_RESEND_COOLDOWN_SECONDS`; até lá, o código já enviado continua valendo.
+- **Gmail**: ative a verificação em 2 etapas e gere uma "Senha de app"; o `MAIL_FROM` deve usar o mesmo endereço do `SMTP_USER`. Para produção, prefira um provedor transacional com domínio próprio (SPF/DKIM), para os e-mails não caírem no spam.
+- Credenciais ficam só no `.env` (fora do git), nunca no código.
 
 ## Autenticação
 

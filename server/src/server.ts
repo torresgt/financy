@@ -8,6 +8,7 @@ import { env } from './env.js'
 import { buildContext, type GraphQLContext } from './graphql/context.js'
 import { resolvers } from './graphql/resolvers.js'
 import { typeDefs } from './graphql/type-defs.js'
+import { verifyMailer } from './lib/mailer.js'
 import { prisma } from './lib/prisma.js'
 
 function buildCorsOptions(): CorsOptions {
@@ -54,6 +55,9 @@ async function bootstrap() {
 
   await new Promise<void>((resolve) => httpServer.listen({ port: env.PORT }, resolve))
   console.log(`🚀 Financy API rodando em http://localhost:${env.PORT}/graphql`)
+
+  // Em paralelo, sem atrasar a subida: só registra no log se o SMTP está ok.
+  void verifyMailer()
 
   const shutdown = async (signal: string) => {
     console.log(`\n${signal} recebido, encerrando...`)

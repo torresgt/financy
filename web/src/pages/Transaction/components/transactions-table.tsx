@@ -9,6 +9,8 @@ import type { TransactionRowItem } from '../types'
 const headerCellClasses =
   'px-6 py-5 text-xs leading-4 font-medium tracking-[0.6px] text-gray-500 uppercase'
 
+const SKELETON_ROWS = ['skeleton-1', 'skeleton-2', 'skeleton-3', 'skeleton-4']
+
 export interface TransactionsTableProps {
   transactions: TransactionRowItem[]
   currentPage: number
@@ -16,6 +18,12 @@ export interface TransactionsTableProps {
   totalItems: number
   pageSize: number
   onPageChange: (page: number) => void
+  onEdit: (id: string) => void
+  onDelete: (id: string) => void
+  /** Exibe linhas de carregamento no lugar da lista. */
+  loading?: boolean
+  /** Mensagem exibida quando não há transações. */
+  emptyMessage?: string
   /** Posição do bloco na sequência de entrada da página. */
   enterIndex?: number
 }
@@ -27,6 +35,10 @@ export function TransactionsTable({
   totalItems,
   pageSize,
   onPageChange,
+  onEdit,
+  onDelete,
+  loading = false,
+  emptyMessage = 'Nenhuma transação encontrada.',
   enterIndex = 0,
 }: TransactionsTableProps) {
   return (
@@ -51,8 +63,34 @@ export function TransactionsTable({
           </thead>
 
           {/* A chave pela página reanima as linhas ao trocar de página. */}
-          <tbody key={currentPage}>
-            {transactions.map((transaction, index) => {
+          <tbody key={currentPage} aria-busy={loading || undefined}>
+            {loading &&
+              SKELETON_ROWS.map((row) => (
+                <tr key={row} className="h-18 border-b border-gray-200" aria-hidden>
+                  <td className="px-6">
+                    <div className="flex items-center gap-4">
+                      <div className="size-10 shrink-0 animate-pulse rounded-lg bg-gray-200" />
+                      <div className="h-4 w-40 animate-pulse rounded bg-gray-200" />
+                    </div>
+                  </td>
+                  <td colSpan={5} className="px-6">
+                    <div className="ml-auto h-4 w-2/3 animate-pulse rounded bg-gray-200" />
+                  </td>
+                </tr>
+              ))}
+
+            {!loading && transactions.length === 0 && (
+              <tr>
+                <td
+                  colSpan={6}
+                  className="px-6 py-12 text-center text-sm leading-5 font-normal text-gray-500"
+                >
+                  {emptyMessage}
+                </td>
+              </tr>
+            )}
+
+            {!loading && transactions.map((transaction, index) => {
               const isIncome = transaction.type === 'INCOME'
 
               return (
@@ -92,11 +130,18 @@ export function TransactionsTable({
 
                   <td className="w-30 px-6">
                     <div className="flex items-center justify-end gap-2">
-                      <IconButton variant="danger" aria-label={`Excluir ${transaction.description}`}>
+                      <IconButton
+                        variant="danger"
+                        aria-label={`Excluir ${transaction.description}`}
+                        onClick={() => onDelete(transaction.id)}
+                      >
                         <Trash />
                       </IconButton>
 
-                      <IconButton aria-label={`Editar ${transaction.description}`}>
+                      <IconButton
+                        aria-label={`Editar ${transaction.description}`}
+                        onClick={() => onEdit(transaction.id)}
+                      >
                         <SquarePen />
                       </IconButton>
                     </div>

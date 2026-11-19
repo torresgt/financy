@@ -1,18 +1,28 @@
 import { Search } from 'lucide-react'
-import { Input, SelectField } from '@/components/ui'
+import { Input, type SelectOption, SelectField } from '@/components/ui'
 import { ENTER_ANIMATION, stagger } from '@/lib/motion'
 import { cn } from '@/lib/utils'
-import { CATEGORY_OPTIONS, PERIOD_OPTIONS, TYPE_OPTIONS } from '../constants'
+import { TYPE_OPTIONS } from '../constants'
 import type { TransactionFilters } from '../types'
 
 export interface TransactionsFiltersProps {
   value: TransactionFilters
   onChange: (filters: TransactionFilters) => void
+  /** Opções de categoria (incluindo "Todas"). */
+  categoryOptions: SelectOption[]
+  /** Opções de período (incluindo "Todo o período"). */
+  periodOptions: SelectOption[]
   /** Posição do bloco na sequência de entrada da página. */
   enterIndex?: number
 }
 
-export function TransactionsFilters({ value, onChange, enterIndex = 0 }: TransactionsFiltersProps) {
+export function TransactionsFilters({
+  value,
+  onChange,
+  categoryOptions,
+  periodOptions,
+  enterIndex = 0,
+}: TransactionsFiltersProps) {
   function update<K extends keyof TransactionFilters>(key: K, fieldValue: TransactionFilters[K]) {
     onChange({ ...value, [key]: fieldValue })
   }
@@ -36,7 +46,7 @@ export function TransactionsFilters({ value, onChange, enterIndex = 0 }: Transac
       <SelectField
         label="Tipo"
         value={value.type}
-        onValueChange={(type) => update('type', type)}
+        onValueChange={(type) => update('type', type as TransactionFilters['type'])}
         options={TYPE_OPTIONS}
       />
 
@@ -44,14 +54,14 @@ export function TransactionsFilters({ value, onChange, enterIndex = 0 }: Transac
         label="Categoria"
         value={value.category}
         onValueChange={(category) => update('category', category)}
-        options={CATEGORY_OPTIONS}
+        options={categoryOptions}
       />
 
       <SelectField
         label="Período"
         value={value.period}
         onValueChange={(period) => update('period', period)}
-        options={PERIOD_OPTIONS}
+        options={periodOptions}
       />
     </section>
   )
